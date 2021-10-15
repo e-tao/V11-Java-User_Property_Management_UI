@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX17"/>
+	<classpathentry kind="lib" path="C:/Users/Ethan Tao/eclipse-workspace/mariadb-java-client-2.7.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
