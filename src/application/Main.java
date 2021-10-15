@@ -7,11 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/UILayout.fxml"));
-			Scene scene = new Scene(root, 400, 400);
+			Parent root = FXMLLoader.load(getClass().getResource("MainUILayout.fxml"));
+			Scene scene = new Scene(root, 1024, 768);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
