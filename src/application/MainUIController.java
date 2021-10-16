@@ -1,5 +1,8 @@
 package application;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -7,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class MainUIController {
+
+	// ============= FXML Variables ===============
 
 	@FXML
 	private Button amenity;
@@ -20,7 +25,11 @@ public class MainUIController {
 	@FXML
 	private Button user;
 
-	MessageBox message;
+	// =====ADD FXML VARIABLES ABOVE THIS LINE=====
+
+	private MessageBox message;
+
+	private ArrayList<Booking> booking;
 
 	private void checkEmployeeNo() {
 
@@ -47,6 +56,13 @@ public class MainUIController {
 	@FXML
 	void userUI(ActionEvent event) {
 		checkEmployeeNo();
+		DBCon.init();
+		try {
+			booking = Booking.GetBooking();
+		} catch (SQLException e) {
+			message = new MessageBox(AlertType.WARNING, "SQL Query Failer",
+					"An Error occured while querying the database.", e.getMessage());
+		}
 	}
 
 }

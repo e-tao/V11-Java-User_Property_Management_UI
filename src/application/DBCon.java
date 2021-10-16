@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javafx.scene.control.Alert.AlertType;
+
 public class DBCon {
 
 	private static Connection dbConn;
@@ -15,9 +17,12 @@ public class DBCon {
 	public static void init() {
 
 		try {
-			dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nation", "root", "");
+			dbConn = DriverManager.getConnection("jdbc:mysql://192.168.1.15:3306/firernr", "ethan", "Ethan818213!");
+			// System.out.println("Database connected!");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			MessageBox message = new MessageBox(AlertType.WARNING, "SQL Connection Failure",
+					"Cannot connect to SQL Database.", "");
 		}
 	}
 

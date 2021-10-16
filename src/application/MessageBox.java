@@ -10,6 +10,10 @@ public class MessageBox {
 
 	private Alert message;
 	private HBox details;
+//	private AlertType type;
+//	private String title;
+//	private String content;
+	private String detailMsg;
 
 	public MessageBox(AlertType type, String title, String content, String detailMsg) {
 		message = new Alert(type);
