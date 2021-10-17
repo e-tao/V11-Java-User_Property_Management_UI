@@ -22,7 +22,7 @@ public class DBCon {
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			MessageBox message = new MessageBox(AlertType.WARNING, "SQL Connection Failure",
-					"Cannot connect to SQL Database.", "");
+					"Cannot connect to SQL Database.", e.getMessage());
 		}
 	}
 

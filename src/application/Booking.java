@@ -6,11 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Booking {
+public class Booking implements Queryable {
 
 	String propertyName, reservedBy;
 	LocalDate fromD, toD, reservedOn;
+	HashMap<String, String> tableArrtribute;
+
+	public Booking() {
+
+	}
 
 	public Booking(String propertyName, String reservedBy, LocalDate fromD, LocalDate toD, LocalDate reservedOn) {
 		this.propertyName = propertyName;
@@ -34,12 +40,72 @@ public class Booking {
 		while (result.next()) {
 
 			bookings.add(new Booking(result.getString("Property Name"), result.getString("Reserved By"),
-					result.getDate("Reserved Until").toLocalDate(), result.getDate("Reserved From").toLocalDate(),
+					result.getDate("Reserved From").toLocalDate(), result.getDate("Reserved Until").toLocalDate(),
 					result.getDate("Reserved On").toLocalDate()));
 		}
 
 		return bookings;
 
+	}
+
+	public HashMap<String, String> getTableArrtibute() {
+		tableArrtribute = new HashMap<>();
+		tableArrtribute.put("propertyName", "Property Name");
+		tableArrtribute.put("reservedBy", "Reserved By");
+		tableArrtribute.put("fromD", "Reserved From");
+		tableArrtribute.put("toD", "Reserved Until");
+		tableArrtribute.put("reservedOn", "Reserved On");
+
+		return tableArrtribute;
+
+	}
+
+	public String getPropertyName() {
+		return propertyName;
+	}
+
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
+	}
+
+	public String getReservedBy() {
+		return reservedBy;
+	}
+
+	public void setReservedBy(String reservedBy) {
+		this.reservedBy = reservedBy;
+	}
+
+	public LocalDate getFromD() {
+		return fromD;
+	}
+
+	public void setFromD(LocalDate fromD) {
+		this.fromD = fromD;
+	}
+
+	public LocalDate getToD() {
+		return toD;
+	}
+
+	public void setToD(LocalDate toD) {
+		this.toD = toD;
+	}
+
+	public LocalDate getReservedOn() {
+		return reservedOn;
+	}
+
+	public void setReservedOn(LocalDate reservedOn) {
+		this.reservedOn = reservedOn;
+	}
+
+	public HashMap<String, String> getTableArrtribute() {
+		return tableArrtribute;
+	}
+
+	public void setTableArrtribute(HashMap<String, String> tableArrtribute) {
+		this.tableArrtribute = tableArrtribute;
 	}
 
 //	public static void Add(Booking country) throws SQLException {
@@ -101,7 +167,16 @@ public class Booking {
 
 //	@Override
 //	public String toString() {
-//		return name + " " + nationalDay + " " + cc2 + " " + cc3;
+//		return propertyName + " " + reservedBy + " " + fromD + " " + toD + " " + reservedOn;
+//
+//	}
+//
+//	public static void main(String[] args) throws SQLException {
+//
+//		DBCon.init();
+//		ArrayList<Booking> bookingList = Booking.GetBooking();
+//		bookingList.stream().forEach(c -> System.out.println(c));
+//		DBCon.close();
 //
 //	}
 
