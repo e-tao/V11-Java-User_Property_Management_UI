@@ -1,13 +1,15 @@
 package application;
 
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -19,15 +21,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-//	Booking booking = new Booking();
-//	TableColumn<Booking, String> column;
-
-	private Queryable booking = new Booking();
-	private TableView<Queryable> bookingTable = new TableView<>();
-	private ViewGenerator view = new ViewGenerator();
+	Booking bookingTable = new Booking();
 
 	private SecLevelWindow bookingWindow;
-
 	private String employeeNnumber;
 
 	@Override
@@ -67,17 +63,19 @@ public class Main extends Application {
 			hTop.setPrefHeight(20);
 			vTop.setPrefHeight(40);
 
-//=========================== Misc. components ============================================
+//=========================== Misc. components ========================================
 
-			Label employee = new Label("Employee No.");
+			Label employee = new Label("Employee Number: ");
 			TextField employeeNo = new TextField();
-			employeeNo.setPromptText("8 digts Employee No.");
+			employeeNo.setPrefWidth(buttonW + 10);
+			employeeNo.setPromptText("8 digits and PRESS ENTER!");
 			employeeNo.setFocusTraversable(false);
+			employeeNnumber = employeeNo.getText();
 
 			Separator separator = new Separator();
-			Label copyRight = new Label("FireRnR All Rights Reserved 2019 - 2021");
+			Label copyRight = new Label("FireRnR All Rights Reserved 2021");
 
-//======================= Buttons and Decorations Start ===================================	
+//======================= Buttons and Decorations  ===================================	
 
 			Button booking = new Button("_BOOKING");
 			Button user = new Button("_USER");
@@ -117,25 +115,30 @@ public class Main extends Application {
 			property.setPrefSize(buttonW, buttonH);
 			log.setPrefSize(buttonW, buttonH);
 
-//======================= Buttons and Decorations End ===================================	
-
-//================================ Actions config start =================================
+//================================ OnActions configuration start =======================
 			employeeNo.setOnAction((ae) -> {
 				employeeNnumber = employeeNo.getText();
 			});
 
 			booking.setOnAction((ae) -> {
-				bookingWindow = new SecLevelWindow();
-				bookingWindow.show();
+
+				if (!employeeNoEmpty()) {
+					try {
+						bookingWindow = new SecLevelWindow(bookingTable.tableGenerator());
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					bookingWindow.show();
+				}
 			});
 
-//================================ Actions config end ===================================
-
-//======================= Main UI Arrangement Starts ====================================
+//======================= Main UI Arrangement =========================================
 
 			hTop.getChildren().addAll(employee, employeeNo);
 			hTop.setAlignment(Pos.CENTER);
-			hTop.setSpacing(20);
+			hTop.setSpacing(10);
 			vTop.getChildren().add(hTop);
 			vTop.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -156,7 +159,7 @@ public class Main extends Application {
 			root.setCenter(vCenter);
 			root.setBottom(vBottom);
 
-			// ============ scene and stage config start = ===================
+			// ============ scene and stage configuration ===================
 
 			Scene scene = new Scene(root, 550, 450);
 			scene.setCursor(Cursor.HAND);
@@ -167,23 +170,11 @@ public class Main extends Application {
 			primaryStage.setTitle("FireRnR Database Query System");
 			primaryStage.show();
 
-			// ============ scene and stage config end =======================
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 ////======================= Main UI Arrangement Ends ====================================
-
-//			bookingTable = view.getView(booking);
-//			root.setCenter(bookingTable);
-
-//			DBCon.init();
-//			ArrayList<Booking> booking = Booking.GetBooking();
-//
-//			DBCon.close();
-
-//			bookingTable.getItems().addAll(booking);
 
 	}
 
@@ -191,7 +182,17 @@ public class Main extends Application {
 		launch(args);
 	}
 
+	public boolean employeeNoEmpty() {
+		if (employeeNnumber.isEmpty() || !employeeNnumber.matches("[0-9]+") || employeeNnumber.length() != 8) {
+			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER EMPTY",
+					"Enter your Employee Number and PRESS RETURN to continue.", "");
+			return true;
+		}
+		return false;
+	}
+
 	public String getEmployeeNnumber() {
+
 		return employeeNnumber;
 	}
 
