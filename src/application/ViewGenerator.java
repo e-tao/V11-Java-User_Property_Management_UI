@@ -9,6 +9,9 @@ public class ViewGenerator {
 	TableColumn<Queryable, String> column;
 	TableView<Queryable> table;
 
+//	Booking booking = new Booking();
+//	TableColumn<Booking, String> column;
+
 	public TableView<Queryable> getView(Queryable item) {
 		table = new TableView<>();
 

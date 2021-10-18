@@ -2,6 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,9 +22,13 @@ public class Main extends Application {
 //	Booking booking = new Booking();
 //	TableColumn<Booking, String> column;
 
-	Queryable booking = new Booking();
-	TableView<Queryable> bookingTable = new TableView<>();
-	ViewGenerator view = new ViewGenerator();
+	private Queryable booking = new Booking();
+	private TableView<Queryable> bookingTable = new TableView<>();
+	private ViewGenerator view = new ViewGenerator();
+
+	private SecLevelWindow bookingWindow;
+
+	private String employeeNnumber;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -67,6 +72,7 @@ public class Main extends Application {
 			Label employee = new Label("Employee No.");
 			TextField employeeNo = new TextField();
 			employeeNo.setPromptText("8 digts Employee No.");
+			employeeNo.setFocusTraversable(false);
 
 			Separator separator = new Separator();
 			Label copyRight = new Label("FireRnR All Rights Reserved 2019 - 2021");
@@ -88,20 +94,22 @@ public class Main extends Application {
 			property.setGraphic(propertyImg);
 			log.setGraphic(logImg);
 
+			String bgStyle = "-fx-background-color: BurlyWood; -fx-font-size:13px;";
+
 			Tooltip bookingTip = new Tooltip("Manage Bookings");
-			bookingTip.setStyle("-fx-background-color: BurlyWood;");
+			bookingTip.setStyle(bgStyle);
 			booking.setTooltip(bookingTip);
 
 			Tooltip userTip = new Tooltip("Manage User Accounts");
-			userTip.setStyle("-fx-background-color: BurlyWood;");
+			userTip.setStyle(bgStyle);
 			user.setTooltip(userTip);
 
 			Tooltip propertyTip = new Tooltip("Manage Available Properties");
-			propertyTip.setStyle("-fx-background-color: BurlyWood;");
+			propertyTip.setStyle(bgStyle);
 			property.setTooltip(propertyTip);
 
 			Tooltip logTip = new Tooltip("System Logs");
-			logTip.setStyle("-fx-background-color: BurlyWood;");
+			logTip.setStyle(bgStyle);
 			log.setTooltip(logTip);
 
 			booking.setPrefSize(buttonW, buttonH);
@@ -109,7 +117,19 @@ public class Main extends Application {
 			property.setPrefSize(buttonW, buttonH);
 			log.setPrefSize(buttonW, buttonH);
 
-//======================= Buttons and Decorations End ===================================			
+//======================= Buttons and Decorations End ===================================	
+
+//================================ Actions config start =================================
+			employeeNo.setOnAction((ae) -> {
+				employeeNnumber = employeeNo.getText();
+			});
+
+			booking.setOnAction((ae) -> {
+				bookingWindow = new SecLevelWindow();
+				bookingWindow.show();
+			});
+
+//================================ Actions config end ===================================
 
 //======================= Main UI Arrangement Starts ====================================
 
@@ -136,7 +156,22 @@ public class Main extends Application {
 			root.setCenter(vCenter);
 			root.setBottom(vBottom);
 
-			Scene scene = new Scene(root, 500, 400);
+			// ============ scene and stage config start = ===================
+
+			Scene scene = new Scene(root, 550, 450);
+			scene.setCursor(Cursor.HAND);
+
+			primaryStage.setResizable(false);
+			primaryStage.setScene(scene);
+			primaryStage.getIcons().add(new Image("/rec/icon.png"));
+			primaryStage.setTitle("FireRnR Database Query System");
+			primaryStage.show();
+
+			// ============ scene and stage config end =======================
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 ////======================= Main UI Arrangement Ends ====================================
 
@@ -150,16 +185,14 @@ public class Main extends Application {
 
 //			bookingTable.getItems().addAll(booking);
 
-			primaryStage.setScene(scene);
-			primaryStage.getIcons().add(new Image("/rec/icon.png"));
-			primaryStage.setTitle("FireRnR Database Query System");
-			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	public String getEmployeeNnumber() {
+		return employeeNnumber;
+	}
+
 }
