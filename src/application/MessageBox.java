@@ -8,15 +8,13 @@ import javafx.scene.text.Text;
 
 public class MessageBox {
 
-	private Alert message;
-	private HBox details;
 //	private AlertType type;
 //	private String title;
 //	private String content;
-	private String detailMsg;
+//	private String detailMsg;
 
 	public MessageBox(AlertType type, String title, String content, String detailMsg) {
-		message = new Alert(type);
+		Alert message = new Alert(type);
 		message.setTitle(title);
 		message.setHeaderText(null);
 		message.setContentText(content);
@@ -28,7 +26,7 @@ public class MessageBox {
 	}
 
 	public Node DetailMessage(String detailMsg) {
-		details = new HBox();
+		HBox details = new HBox();
 		details.getChildren().add(new Text(detailMsg));
 
 		return details;

@@ -8,11 +8,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.control.TableView;
+
 public class Booking implements Queryable {
 
-	String propertyName, reservedBy;
-	LocalDate fromD, toD, reservedOn;
-	HashMap<String, String> tableArrtribute;
+	private String propertyName, reservedBy;
+	private LocalDate fromD, toD, reservedOn;
+	private HashMap<String, String> tableArrtribute;
+
+	private Queryable booking;
+	private TableView<Queryable> bookingTable;
 
 	public Booking() {
 
@@ -48,7 +53,7 @@ public class Booking implements Queryable {
 
 	}
 
-	public HashMap<String, String> getTableArrtibute() {
+	public HashMap<String, String> getTableAttribute() {
 		tableArrtribute = new HashMap<>();
 		tableArrtribute.put("propertyName", "Property Name");
 		tableArrtribute.put("reservedBy", "Reserved By");
@@ -58,6 +63,21 @@ public class Booking implements Queryable {
 
 		return tableArrtribute;
 
+	}
+
+	public TableView<Queryable> tableGenerator() throws SQLException {
+		booking = new Booking();
+		bookingTable = new TableView<>();
+
+		bookingTable = ViewGenerator.getView(booking);
+
+		DBCon.init();
+		ArrayList<Booking> bookingList = GetBooking();
+
+		DBCon.close();
+
+		bookingTable.getItems().addAll(bookingList);
+		return bookingTable;
 	}
 
 	public String getPropertyName() {

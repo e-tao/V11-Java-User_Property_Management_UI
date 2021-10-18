@@ -1,35 +1,32 @@
 package application;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SecLevelWindow {
 
-	private BorderPane root;
+	private Parent root;
 	private Stage stage;
 	private Scene scene;
 
-	private TableView<Queryable> table;
-	private ViewGenerator view;
-
+	// private TableView<Queryable> table;
+	// private ViewGenerator view;
 	// TableView<Queryable> table, ViewGenerator view
 
-	public SecLevelWindow() {
+	public SecLevelWindow(TableView<Queryable> table) {
 
-		root = new BorderPane();
+		int width = 800;
+		int height = 600;
+
 		stage = new Stage();
-		HBox hBoxTop = new HBox();
-		HBox hBoxBottom = new HBox();
 		VBox vBox = new VBox();
+		vBox.getChildren().add(table);
+		root = vBox;
 
-		vBox.getChildren().addAll(hBoxTop, hBoxBottom);
-		root.getChildren().add(vBox);
-
-		scene = new Scene(root, 800, 600);
+		scene = new Scene(root, width, height);
 		stage.setScene(scene);
 
 	}
