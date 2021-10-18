@@ -184,7 +184,7 @@ public class Main extends Application {
 
 	public boolean employeeNoEmpty() {
 		if (employeeNnumber.isEmpty() || !employeeNnumber.matches("[0-9]+") || employeeNnumber.length() != 8) {
-			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER EMPTY",
+			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER IS EMPTY",
 					"Enter your Employee Number and PRESS RETURN to continue.", "");
 			return true;
 		}
