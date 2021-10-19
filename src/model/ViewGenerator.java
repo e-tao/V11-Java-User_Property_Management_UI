@@ -1,5 +1,6 @@
-package application;
+package model;
 
+import application.Queryable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;

@@ -1,4 +1,4 @@
-package application;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import application.Queryable;
 import javafx.scene.control.TableView;
 
 //SELECT `propertyName` AS `Property Name`, CONCAT_WS(',', propertyAddrSuitNo, propertyAddrNo, propertyAddrStreet, propertyAddrCity, propertyAddrProv, propertyAddrCountry, propertyPostalCode) AS `Address`, `noOfRooms` AS `Rooms` FROM property

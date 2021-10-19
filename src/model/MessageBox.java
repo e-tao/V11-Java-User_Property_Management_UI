@@ -1,4 +1,4 @@
-package application;
+package model;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
