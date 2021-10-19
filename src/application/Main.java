@@ -22,14 +22,17 @@ import model.Booking;
 import model.MessageBox;
 import model.Property;
 import model.SecLevelWindow;
+import model.User;
 
 public class Main extends Application {
 
 	private Booking bookingTable = new Booking();
 	private Property propertyTable = new Property();
+	private User userTable = new User();
 
 	private SecLevelWindow bookingWindow;
 	private SecLevelWindow propertyWindow;
+	private SecLevelWindow userWindow;
 
 	private String employeeNnumber;
 
@@ -129,27 +132,47 @@ public class Main extends Application {
 
 			booking.setOnAction((ae) -> {
 
-				if (!employeeNoEmpty()) {
-					try {
-						bookingWindow = new SecLevelWindow(bookingTable.tableGenerator());
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-
-					bookingWindow.show();
+				if (bookingWindow != null) {
+					bookingWindow.close();
 				}
+				try {
+					bookingWindow = new SecLevelWindow(bookingTable.tableGenerator());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				bookingWindow.show();
+
 			});
 
 			property.setOnAction((ae) -> {
+				if (propertyWindow != null) {
+					propertyWindow.close();
+				}
+				try {
+					propertyWindow = new SecLevelWindow(propertyTable.tableGenerator());
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+
+				propertyWindow.show();
+			});
+
+			user.setOnAction((ae) -> {
+
+				if (userWindow != null) {
+					userWindow.close();
+				}
 
 				if (!employeeNoEmpty()) {
 					try {
-						propertyWindow = new SecLevelWindow(propertyTable.tableGenerator());
+						userWindow = new SecLevelWindow(userTable.tableGenerator());
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 
-					propertyWindow.show();
+					userWindow.show();
 				}
 			});
 
@@ -187,6 +210,9 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image("/rec/icon.png"));
 			primaryStage.setTitle("FireRnR Database Query System");
+			primaryStage.setX(0);
+			primaryStage.setY(0);
+
 			primaryStage.show();
 
 		} catch (Exception e) {
