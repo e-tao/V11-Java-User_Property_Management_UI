@@ -14,7 +14,7 @@ public class Booking implements Queryable {
 
 	private String propertyName, reservedBy;
 	private LocalDate fromD, toD, reservedOn;
-	private HashMap<String, String> tableArrtribute;
+	private HashMap<String, String> tableAttribute;
 
 	private Queryable booking;
 	private TableView<Queryable> bookingTable;
@@ -54,14 +54,14 @@ public class Booking implements Queryable {
 	}
 
 	public HashMap<String, String> getTableAttribute() {
-		tableArrtribute = new HashMap<>();
-		tableArrtribute.put("propertyName", "Property Name");
-		tableArrtribute.put("reservedBy", "Reserved By");
-		tableArrtribute.put("fromD", "Reserved From");
-		tableArrtribute.put("toD", "Reserved Until");
-		tableArrtribute.put("reservedOn", "Reserved On");
+		tableAttribute = new HashMap<>();
+		tableAttribute.put("propertyName", "Property Name");
+		tableAttribute.put("reservedBy", "Reserved By");
+		tableAttribute.put("fromD", "Reserved From");
+		tableAttribute.put("toD", "Reserved Until");
+		tableAttribute.put("reservedOn", "Reserved On");
 
-		return tableArrtribute;
+		return tableAttribute;
 
 	}
 
@@ -121,11 +121,11 @@ public class Booking implements Queryable {
 	}
 
 	public HashMap<String, String> getTableArrtribute() {
-		return tableArrtribute;
+		return tableAttribute;
 	}
 
 	public void setTableArrtribute(HashMap<String, String> tableArrtribute) {
-		this.tableArrtribute = tableArrtribute;
+		this.tableAttribute = tableArrtribute;
 	}
 
 //	public static void Add(Booking country) throws SQLException {
