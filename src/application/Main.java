@@ -129,7 +129,6 @@ public class Main extends Application {
 					try {
 						bookingWindow = new SecLevelWindow(bookingTable.tableGenerator());
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
