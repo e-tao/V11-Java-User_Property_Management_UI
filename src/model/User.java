@@ -57,7 +57,7 @@ public class User implements Queryable {
 
 	}
 	
-
+	
 	@Override
 	public LinkedHashMap<String, String> getTableAttribute() {
 		tableAttribute = new LinkedHashMap<>();
