@@ -73,7 +73,7 @@ public class Main extends Application {
 			employeeNnumber = employeeNo.getText();
 
 			Separator separator = new Separator();
-			Label copyRight = new Label("FireRnR All Rights Reserved 2021");
+			Label prompt = new Label("Press Alt Key to show keyboard shortcuts");
 
 //======================= Buttons and Decorations  ===================================	
 
@@ -152,7 +152,7 @@ public class Main extends Application {
 			vCenter.setAlignment(Pos.CENTER);
 			vCenter.setSpacing(centerSpacing);
 
-			vBottom.getChildren().addAll(separator, copyRight);
+			vBottom.getChildren().addAll(separator, prompt);
 			vBottom.setAlignment(Pos.CENTER);
 
 			root.setTop(vTop);
