@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javafx.scene.control.TableView;
 
@@ -14,7 +14,7 @@ public class Booking implements Queryable {
 
 	private String propertyName, reservedBy;
 	private LocalDate fromD, toD, reservedOn;
-	private HashMap<String, String> tableAttribute;
+	private LinkedHashMap<String, String> tableAttribute;
 
 	private Queryable booking;
 	private TableView<Queryable> bookingTable;
@@ -23,7 +23,7 @@ public class Booking implements Queryable {
 
 	}
 
-	public Booking(String propertyName, String reservedBy, LocalDate fromD, LocalDate toD, LocalDate reservedOn) {
+	public Booking(String propertyName, LocalDate reservedOn, String reservedBy, LocalDate fromD, LocalDate toD) {
 		this.propertyName = propertyName;
 		this.reservedBy = reservedBy;
 		this.fromD = fromD;
@@ -44,22 +44,22 @@ public class Booking implements Queryable {
 
 		while (result.next()) {
 
-			bookings.add(new Booking(result.getString("Property Name"), result.getString("Reserved By"),
-					result.getDate("Reserved From").toLocalDate(), result.getDate("Reserved Until").toLocalDate(),
-					result.getDate("Reserved On").toLocalDate()));
+			bookings.add(new Booking(result.getString("Property Name"), result.getDate("Reserved On").toLocalDate(),
+					result.getString("Reserved By"), result.getDate("Reserved From").toLocalDate(),
+					result.getDate("Reserved Until").toLocalDate()));
 		}
 
 		return bookings;
 
 	}
 
-	public HashMap<String, String> getTableAttribute() {
-		tableAttribute = new HashMap<>();
+	public LinkedHashMap<String, String> getTableAttribute() {
+		tableAttribute = new LinkedHashMap<>();
 		tableAttribute.put("propertyName", "Property Name");
+		tableAttribute.put("reservedOn", "Reserved On");
 		tableAttribute.put("reservedBy", "Reserved By");
 		tableAttribute.put("fromD", "Reserved From");
 		tableAttribute.put("toD", "Reserved Until");
-		tableAttribute.put("reservedOn", "Reserved On");
 
 		return tableAttribute;
 
@@ -84,48 +84,20 @@ public class Booking implements Queryable {
 		return propertyName;
 	}
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
-	}
-
 	public String getReservedBy() {
 		return reservedBy;
-	}
-
-	public void setReservedBy(String reservedBy) {
-		this.reservedBy = reservedBy;
 	}
 
 	public LocalDate getFromD() {
 		return fromD;
 	}
 
-	public void setFromD(LocalDate fromD) {
-		this.fromD = fromD;
-	}
-
 	public LocalDate getToD() {
 		return toD;
 	}
 
-	public void setToD(LocalDate toD) {
-		this.toD = toD;
-	}
-
 	public LocalDate getReservedOn() {
 		return reservedOn;
-	}
-
-	public void setReservedOn(LocalDate reservedOn) {
-		this.reservedOn = reservedOn;
-	}
-
-	public HashMap<String, String> getTableArrtribute() {
-		return tableAttribute;
-	}
-
-	public void setTableArrtribute(HashMap<String, String> tableArrtribute) {
-		this.tableAttribute = tableArrtribute;
 	}
 
 //	public static void Add(Booking country) throws SQLException {

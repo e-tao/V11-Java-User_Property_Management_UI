@@ -21,9 +21,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	Booking bookingTable = new Booking();
+	private Booking bookingTable = new Booking();
+	private Property propertyTable = new Property();
 
 	private SecLevelWindow bookingWindow;
+	private SecLevelWindow propertyWindow;
+
 	private String employeeNnumber;
 
 	@Override
@@ -131,6 +134,19 @@ public class Main extends Application {
 					}
 
 					bookingWindow.show();
+				}
+			});
+
+			property.setOnAction((ae) -> {
+
+				if (!employeeNoEmpty()) {
+					try {
+						propertyWindow = new SecLevelWindow(propertyTable.tableGenerator());
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
+					propertyWindow.show();
 				}
 			});
 

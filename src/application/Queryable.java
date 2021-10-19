@@ -1,15 +1,16 @@
 package application;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javafx.scene.control.TableView;
 
 public interface Queryable {
 
-	public HashMap<String, String> getTableAttribute();
+	public LinkedHashMap<String, String> getTableAttribute();
 
-	// this method is a Hard coded HashMap, it uses related instant variables
+	// In order to preserve the Order of the HashMap, the LinkedHashMap is used.
+	// it's hard coded into the program. It uses related instant variables
 	// (usually those include in the constructor) of the implementing Class as key
 	// and SQL query attributes as value;
 	//
