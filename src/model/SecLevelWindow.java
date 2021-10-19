@@ -1,5 +1,6 @@
 package model;
 
+import application.Main;
 import application.Queryable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,16 +13,18 @@ public class SecLevelWindow {
 	private Parent root;
 	private Stage stage;
 	private Scene scene;
+	private Main parent;
 
 	// private TableView<Queryable> table;
 	// private ViewGenerator view;
 	// TableView<Queryable> table, ViewGenerator view
 
-	public SecLevelWindow(TableView<Queryable> table) {
+	public SecLevelWindow(Main parent, TableView<Queryable> table) {
 
 		int width = 800;
 		int height = 600;
 
+		this.parent = parent;
 		stage = new Stage();
 		VBox vBox = new VBox();
 		vBox.getChildren().add(table);
@@ -34,6 +37,10 @@ public class SecLevelWindow {
 
 	public void show() {
 		stage.show();
+	}
+
+	public void close() {
+		stage.close();
 	}
 
 }
