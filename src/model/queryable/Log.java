@@ -1,4 +1,4 @@
-package model;
+package model.queryable;
 
 import java.sql.Connection;
 import java.sql.Date;

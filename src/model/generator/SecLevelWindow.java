@@ -1,4 +1,4 @@
-package model;
+package model.generator;
 
 import java.sql.SQLException;
 
@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.queryable.User;
 
 public class SecLevelWindow {
 

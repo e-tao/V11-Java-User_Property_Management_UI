@@ -1,4 +1,4 @@
-package model;
+package model.generator;
 
 import application.Queryable;
 import javafx.scene.control.TableColumn;

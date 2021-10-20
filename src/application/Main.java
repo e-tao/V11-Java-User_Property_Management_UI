@@ -18,11 +18,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Booking;
-import model.MessageBox;
-import model.Property;
-import model.SecLevelWindow;
-import model.User;
+import model.generator.MessageBox;
+import model.generator.SecLevelWindow;
+import model.queryable.Booking;
+import model.queryable.Property;
+import model.queryable.User;
 
 public class Main extends Application {
 

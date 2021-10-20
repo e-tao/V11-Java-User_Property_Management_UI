@@ -1,4 +1,4 @@
-package model;
+package model.generator;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;

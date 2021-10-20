@@ -1,4 +1,4 @@
-package model;
+package model.queryable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 
 import application.Queryable;
 import javafx.scene.control.TableView;
+import model.generator.ViewGenerator;
 
 public class Booking implements Queryable {
 
