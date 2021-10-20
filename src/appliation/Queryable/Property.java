@@ -1,4 +1,4 @@
-package model.queryable;
+package appliation.Queryable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import application.Queryable;
+import application.Connection.DBCon;
+import application.UIGenerator.ViewGenerator;
 import javafx.scene.control.TableView;
-import model.generator.ViewGenerator;
 
 //SELECT `propertyName` AS `Property Name`, CONCAT_WS(',', propertyAddrSuitNo, propertyAddrNo, propertyAddrStreet, propertyAddrCity, propertyAddrProv, propertyAddrCountry, propertyPostalCode) AS `Address`, `noOfRooms` AS `Rooms` FROM property
 

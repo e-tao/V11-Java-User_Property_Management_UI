@@ -2,6 +2,11 @@ package application;
 
 import java.sql.SQLException;
 
+import appliation.Queryable.Booking;
+import appliation.Queryable.Property;
+import appliation.Queryable.User;
+import application.UIGenerator.MessageBox;
+import application.UIGenerator.SecLevelWindow;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -18,11 +23,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.generator.MessageBox;
-import model.generator.SecLevelWindow;
-import model.queryable.Booking;
-import model.queryable.Property;
-import model.queryable.User;
 
 public class Main extends Application {
 

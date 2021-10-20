@@ -1,4 +1,4 @@
-package model.queryable;
+package appliation.Queryable;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+
+import application.Connection.DBCon;
 
 
 public class Log {
