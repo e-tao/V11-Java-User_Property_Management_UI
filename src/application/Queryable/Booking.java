@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import application.Connection.DBCon;
-import application.UIGenerator.ViewGenerator;
+import application.UIComponent.ViewGenerator;
 import javafx.scene.control.TableView;
 
 public class Booking implements Queryable {

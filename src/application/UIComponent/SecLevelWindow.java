@@ -1,4 +1,4 @@
-package application.UIGenerator;
+package application.UIComponent;
 
 import java.sql.SQLException;
 

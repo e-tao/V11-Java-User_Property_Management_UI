@@ -1,4 +1,4 @@
-package application.UIGenerator;
+package application.UIComponent;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;

@@ -1,4 +1,4 @@
-package application.UIGenerator;
+package application.UIComponent;
 
 import application.Queryable.Queryable;
 import javafx.scene.control.TableColumn;

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import application.UIGenerator.MessageBox;
+import application.UIComponent.MessageBox;
 import javafx.scene.control.Alert.AlertType;
 
 public class DBCon {
