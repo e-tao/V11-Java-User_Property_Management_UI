@@ -41,11 +41,7 @@ public class UserSubWindow {
 		stage.setScene(scene);
 		
 		stage.show();
-		
-		
-		
-		
-		
+
 	}
 	
 
