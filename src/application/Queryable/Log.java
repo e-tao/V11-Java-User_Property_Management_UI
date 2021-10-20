@@ -1,4 +1,4 @@
-package appliation.Queryable;
+package application.Queryable;
 
 import java.sql.Connection;
 import java.sql.Date;

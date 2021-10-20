@@ -2,11 +2,8 @@ package application;
 
 import java.sql.SQLException;
 
-import appliation.Queryable.Booking;
-import appliation.Queryable.Property;
-import appliation.Queryable.User;
-import application.UIGenerator.MessageBox;
-import application.UIGenerator.SecLevelWindow;
+import application.Queryable.*;
+import application.UIGenerator.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

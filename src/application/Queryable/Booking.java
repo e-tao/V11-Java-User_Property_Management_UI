@@ -1,4 +1,4 @@
-package appliation.Queryable;
+package application.Queryable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import application.Queryable;
 import application.Connection.DBCon;
 import application.UIGenerator.ViewGenerator;
 import javafx.scene.control.TableView;

@@ -2,8 +2,7 @@ package application.UIGenerator;
 
 import java.sql.SQLException;
 
-import appliation.Queryable.User;
-import application.Queryable;
+import application.Queryable.*;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
