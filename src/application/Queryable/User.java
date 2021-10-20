@@ -14,8 +14,7 @@ import javafx.scene.control.TableView;
 public class User implements Queryable {
 
 	private String username, userFirstName, userLastName, mailAddr, emaiAddr;
-	private String mailAddrSuitNo, mailAddrStNo, mailAddrSt, mailAddrCity, mailAddrProv, mailAddrCountry,
-			mailPostalCode;
+	private String phoneNo;
 
 	private LinkedHashMap<String, String> tableAttribute;
 
@@ -66,7 +65,18 @@ public class User implements Queryable {
 
 		q.execute();
 	}
+	
+	public LinkedHashMap<String, String> updateAttribute() {
+		tableAttribute = new LinkedHashMap<>();
+		tableAttribute.put("username", "Username");
+		tableAttribute.put("userFirstName", "First Name");
+		tableAttribute.put("userLastName", "Last Name");
+		tableAttribute.put("phoneNo", "Phone Number");
+		tableAttribute.put("emaiAddr", "Email Address");
 
+		return tableAttribute;
+	}
+	
 	@Override
 	public LinkedHashMap<String, String> getTableAttribute() {
 		tableAttribute = new LinkedHashMap<>();
@@ -115,5 +125,12 @@ public class User implements Queryable {
 	public String getEmaiAddr() {
 		return emaiAddr;
 	}
+	
+	public String getPhone() {
+		return phoneNo;
+	}
+	
+
+	
 
 }

@@ -17,6 +17,8 @@ public class SecLevelWindow {
 	private Parent root;
 	private Stage stage;
 	private Scene scene;
+	
+	UserSubWindow updateWindow;
 
 	// private TableView<Queryable> table;
 	// private ViewGenerator view;
@@ -45,6 +47,14 @@ public class SecLevelWindow {
 				// System.out.println(Main.getEmployeeNnumber() + " deleted a record at " +
 				// LocalDateTime.now());
 			});
+			
+			update.setOnAction((ae)->{
+				
+				updateWindow = new UserSubWindow(this);
+
+				
+			});
+			
 
 			hBox.setSpacing(80);
 			hBox.setPrefHeight(100);
