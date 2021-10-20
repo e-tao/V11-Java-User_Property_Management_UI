@@ -34,7 +34,7 @@ public class Main extends Application {
 	private SecLevelWindow propertyWindow;
 	private SecLevelWindow userWindow;
 
-	private String employeeNnumber;
+	private static String employeeNnumber;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -136,7 +136,7 @@ public class Main extends Application {
 					bookingWindow.close();
 				}
 				try {
-					bookingWindow = new SecLevelWindow(bookingTable.tableGenerator());
+					bookingWindow = new SecLevelWindow(bookingTable.tableGenerator(), false);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -150,7 +150,7 @@ public class Main extends Application {
 					propertyWindow.close();
 				}
 				try {
-					propertyWindow = new SecLevelWindow(propertyTable.tableGenerator());
+					propertyWindow = new SecLevelWindow(propertyTable.tableGenerator(), false);
 				} catch (SQLException e) {
 
 					e.printStackTrace();
@@ -167,13 +167,14 @@ public class Main extends Application {
 
 				if (!employeeNoEmpty()) {
 					try {
-						userWindow = new SecLevelWindow(userTable.tableGenerator());
+						userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-
 					userWindow.show();
+
 				}
+
 			});
 
 //======================= Main UI Arrangement =========================================
@@ -236,7 +237,7 @@ public class Main extends Application {
 		return false;
 	}
 
-	public String getEmployeeNnumber() {
+	public static String getEmployeeNnumber() {
 
 		return employeeNnumber;
 	}
