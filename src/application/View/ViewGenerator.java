@@ -1,6 +1,6 @@
-package application.UIComponent;
+package application.View;
 
-import application.Queryable.Queryable;
+import application.Model.Queryable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;

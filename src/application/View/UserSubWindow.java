@@ -1,7 +1,7 @@
-package application.UIComponent;
+package application.View;
 
 
-import application.Queryable.User;
+import application.Model.User;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,8 +20,8 @@ public class UserSubWindow {
 
 	public UserSubWindow(SecLevelWindow parent) {
 
-		int width = 800;
-		int height = 600;
+		int width = 300;
+		int height = 300;
 
 		stage = new Stage();
 		VBox vBox = new VBox();
@@ -32,6 +32,7 @@ public class UserSubWindow {
 		for(String key: user.updateAttribute().keySet()) {
 			Label lbl = new Label(user.updateAttribute().get(key));
 			HBox hbox = new HBox();
+			
 			hbox.getChildren().add(lbl);
 			vBox.getChildren().add(hbox);
 		}

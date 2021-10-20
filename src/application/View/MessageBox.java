@@ -1,4 +1,4 @@
-package application.UIComponent;
+package application.View;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;

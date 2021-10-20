@@ -1,10 +1,10 @@
-package application.Connection;
+package application.Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import application.UIComponent.MessageBox;
+import application.View.MessageBox;
 import javafx.scene.control.Alert.AlertType;
 
 public class DBCon {

@@ -1,8 +1,8 @@
-package application.UIComponent;
+package application.View;
 
 import java.sql.SQLException;
 
-import application.Queryable.*;
+import application.Model.*;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

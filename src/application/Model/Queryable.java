@@ -1,4 +1,4 @@
-package application.Queryable;
+package application.Model;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
