@@ -19,7 +19,7 @@ public class SecLevelWindow {
 	private Stage stage;
 	private Scene scene;
 
-	UserSubWindow updateWindow;
+	UserUpdateSubWindow updateWindow;
 
 	public SecLevelWindow(TableView<Queryable> table, boolean withButtons) {
 
@@ -45,7 +45,7 @@ public class SecLevelWindow {
 			});
 
 			update.setOnAction((ae) -> {
-				updateWindow = new UserSubWindow(this);
+				updateWindow = new UserUpdateSubWindow(this);
 				updateWindow.show();
 			});
 
