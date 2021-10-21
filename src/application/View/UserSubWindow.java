@@ -3,6 +3,7 @@ package application.View;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import application.Model.Log;
 import application.Model.User;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ public class UserSubWindow {
 	private Stage stage;
 	private Scene scene;
 	private SecLevelWindow parent;
+	private Log log;
 
 	ArrayList<TextField> updateTxtFd = new ArrayList<>();
 	ArrayList<String> userAttributes = new ArrayList<>();
@@ -68,29 +70,31 @@ public class UserSubWindow {
 				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
 						"Enter the username you want to update", "");
 			} else {
-			
+
 				try {
 					userAttributes = User.GetUser(updateTxtFd.get(0).getText());
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				
-				for(int i=1; i<updateTxtFd.size(); i++) {
-					updateTxtFd.get(i).setText(userAttributes.get(i));
-	
-//				for (String s : userAttributes) {
-//					System.out.println(s);
-//				}
-			}
-		
 
-		}});
+				for (int i = 1; i < updateTxtFd.size(); i++) {
+					updateTxtFd.get(i).setText(userAttributes.get(i));
+
+				}
+
+			}
+		});
 
 		update.setOnAction((ae) -> {
 
-			System.out.println(updateTxtFd.get(0).getText());
+			User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
+					updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
 
-			// updateTxtFd.stream().forEach(b -> System.out.println(b));
+			try {
+				User.Update(modifiedUser);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		});
 
@@ -122,8 +126,5 @@ public class UserSubWindow {
 
 		stage.showAndWait();
 	}
-	
-
-		
 
 }
