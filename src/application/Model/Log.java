@@ -11,8 +11,27 @@ public class Log {
 
 	private String employeeNumber;
 	private String event;
+	private LocalDateTime now;
 
-	public static void Add(Log log) throws SQLException {
+	public Log(String employeeNumber, String event, LocalDateTime now) {
+		this.employeeNumber = employeeNumber;
+		this.event = event;
+		this.now = now;
+	}
+
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
+	}
+
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
+	public void setNow(LocalDateTime now) {
+		this.now = now;
+	}
+
+	public static void addLog(Log log) throws SQLException {
 		Connection conn = DBCon.getDbConn();
 
 		PreparedStatement q = conn.prepareStatement("INSERT INTO `log` (`Employee`, `Event`, `Time`) VALUES (?, ?, ?);",

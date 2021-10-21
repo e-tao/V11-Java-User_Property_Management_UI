@@ -3,6 +3,7 @@ package application;
 import java.sql.SQLException;
 
 import application.Model.Booking;
+import application.Model.Employee;
 import application.Model.Property;
 import application.Model.User;
 import application.View.MessageBox;
@@ -28,7 +29,8 @@ public class Main extends Application {
 
 	private Booking bookingTable = new Booking();
 	private Property propertyTable = new Property();
-	private User opUser = new User();
+	private User userTable = new User();
+	private static Employee operator;
 
 	private SecLevelWindow bookingWindow;
 	private SecLevelWindow propertyWindow;
@@ -78,8 +80,7 @@ public class Main extends Application {
 			employeeNo.setPrefWidth(buttonW + 10);
 			employeeNo.setPromptText("8 digits and PRESS ENTER!");
 			employeeNo.setFocusTraversable(false);
-			opUser.setEmployeeNnumber(employeeNo.getText());
-
+//			operator = new Employee(employeeNo.getText());
 			Separator separator = new Separator();
 			Label prompt = new Label("Press Alt Key to show keyboard shortcuts");
 
@@ -124,9 +125,6 @@ public class Main extends Application {
 			log.setPrefSize(buttonW, buttonH);
 
 //================================ OnActions configuration start =======================
-			employeeNo.setOnAction((ae) -> {
-				opUser.setEmployeeNnumber(employeeNo.getText());
-			});
 
 			booking.setOnAction((ae) -> {
 
@@ -159,22 +157,24 @@ public class Main extends Application {
 
 			user.setOnAction((ae) -> {
 
+				operator = new Employee(employeeNo.getText());
+
 				if (userWindow != null) {
 					userWindow.close();
 				}
 
-//				if (!employeeNoEmpty()) {
-				try {
-					userWindow = new SecLevelWindow(opUser.tableGenerator(), true);
-				} catch (SQLException e) {
-					e.printStackTrace();
+				if (!employeeNoEmpty()) {
+					try {
+						userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					userWindow.show();
+
 				}
-				userWindow.show();
+//				System.out.println(operator.getEmployeeNumber());
 
-			}
-
-//			}
-			);
+			});
 
 //======================= Main UI Arrangement =========================================
 
@@ -228,13 +228,26 @@ public class Main extends Application {
 	}
 
 	public boolean employeeNoEmpty() {
-		if (opUser.getEmployeeNnumber().isEmpty() || !opUser.getEmployeeNnumber().matches("[0-9]+")
-				|| opUser.getEmployeeNnumber().length() != 8) {
+		if (operator.getEmployeeNumber().isEmpty() || !operator.getEmployeeNumber().matches("[0-9]+")
+				|| operator.getEmployeeNumber().length() != 8) {
 			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER IS EMPTY",
 					"Enter your Employee Number and PRESS RETURN to continue.", "");
 			return true;
 		}
 		return false;
+	}
+
+	public void setEmployeeNo(Employee operator) {
+		Main.operator = operator;
+	}
+
+	public static String getEmployeeNo() {
+		if (operator.getEmployeeNumber() != null) {
+			return operator.getEmployeeNumber();
+		}
+
+		return "possible violation";
+
 	}
 
 }

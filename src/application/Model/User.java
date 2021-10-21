@@ -19,11 +19,6 @@ public class User implements Queryable {
 
 	private Queryable user;
 	private TableView<Queryable> userTable;
-	private String employeeNnumber;
-
-	public String getEmployeeNnumber() {
-		return employeeNnumber;
-	}
 
 	public User() {
 
@@ -216,10 +211,6 @@ public class User implements Queryable {
 
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
-	}
-
-	public void setEmployeeNnumber(String employeeNnumber) {
-		this.employeeNnumber = employeeNnumber;
 	}
 
 	public String toString() {

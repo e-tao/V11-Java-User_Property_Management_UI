@@ -52,6 +52,7 @@ public class SecLevelWindow {
 			update.setOnAction((ae) -> {
 
 				updateWindow = new UserSubWindow(this);
+
 				updateWindow.show();
 
 			});

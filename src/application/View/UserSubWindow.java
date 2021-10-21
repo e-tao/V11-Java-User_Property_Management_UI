@@ -1,8 +1,11 @@
 package application.View;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import application.Main;
+import application.Model.Employee;
 import application.Model.Log;
 import application.Model.User;
 import javafx.geometry.Pos;
@@ -28,6 +31,8 @@ public class UserSubWindow {
 	ArrayList<TextField> updateTxtFd = new ArrayList<>();
 	ArrayList<String> userAttributes = new ArrayList<>();
 	User user = new User();
+
+	Employee op = new Employee(Main.getEmployeeNo());
 
 	public UserSubWindow(SecLevelWindow parent) {
 
@@ -86,12 +91,18 @@ public class UserSubWindow {
 		});
 
 		update.setOnAction((ae) -> {
-
-			User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
-					updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
-
 			try {
+				User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
+						updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
+
 				User.Update(modifiedUser);
+
+//				System.out.println(Main.getEmployeeNo());
+
+				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(),
+						LocalDateTime.now());
+
+				Log.addLog(log);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -125,6 +136,19 @@ public class UserSubWindow {
 		stage.initModality(Modality.WINDOW_MODAL);
 
 		stage.showAndWait();
+	}
+
+	public static ArrayList<String> getEvent(ArrayList<String> before, ArrayList<TextField> after) {
+		ArrayList<String> difference = new ArrayList<>();
+
+		for (int i = 0; i < before.size(); i++) {
+			if (!before.get(i).equals(after.get(i).getText())) {
+				difference.add("Changed from " + before.get(i) + " to " + after.get(i).getText());
+			}
+		}
+
+		return difference;
+
 	}
 
 }
