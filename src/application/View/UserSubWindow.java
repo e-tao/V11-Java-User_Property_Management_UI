@@ -24,7 +24,7 @@ public class UserSubWindow {
 	private SecLevelWindow parent;
 
 	ArrayList<TextField> updateTxtFd = new ArrayList<>();
-	ArrayList<User> userAttributes = new ArrayList<>();
+	ArrayList<String> userAttributes = new ArrayList<>();
 	User user = new User();
 
 	public UserSubWindow(SecLevelWindow parent) {
@@ -68,24 +68,23 @@ public class UserSubWindow {
 				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
 						"Enter the username you want to update", "");
 			} else {
+			
 				try {
 					userAttributes = User.GetUser(updateTxtFd.get(0).getText());
-					for (int i = 0; i < userAttributes.size(); i++) {
-						updateTxtFd.get(i).setText(userAttributes.get(i).toString());
-					}
-
-					for (User s : userAttributes) {
-						System.out.println(s);
-					}
-
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
+				for(int i=1; i<updateTxtFd.size(); i++) {
+					updateTxtFd.get(i).setText(userAttributes.get(i));
+	
+//				for (String s : userAttributes) {
+//					System.out.println(s);
+//				}
 			}
+		
 
-		});
+		}});
 
 		update.setOnAction((ae) -> {
 
@@ -123,5 +122,8 @@ public class UserSubWindow {
 
 		stage.showAndWait();
 	}
+	
+
+		
 
 }

@@ -51,11 +51,12 @@ public class User implements Queryable {
 
 		ResultSet rows = q.executeQuery();
 
-		return ReadAll(rows, true);
+		return ReadAll(rows);
 
 	}
+	
 
-	public static ArrayList<User> GetUser(String username) throws SQLException {
+	public static ArrayList<String> GetUser(String username) throws SQLException {
 
 		Connection conn = DBCon.getDbConn();
 
@@ -67,11 +68,28 @@ public class User implements Queryable {
 
 		ResultSet rows = q.executeQuery();
 
-		return ReadAll(rows, false);
-
-	}
-
-	protected static ArrayList<User> ReadAll(ResultSet rows, boolean withAddress) throws SQLException {
+		ArrayList<String> userAttributes = new ArrayList<>();
+		while (rows.next()) {
+					
+				userAttributes.add(rows.getString("userName"));
+				userAttributes.add(rows.getString("userFirstName"));
+				userAttributes.add(rows.getString("userLastName"));
+				
+				String phoneNo = "0";
+				if (rows.getString("phoneNo") != null) {
+					phoneNo = rows.getString("phoneNo");
+				}
+				userAttributes.add(phoneNo);
+				userAttributes.add(rows.getString("email"));
+			
+			}
+		
+		return userAttributes;
+		
+		}
+	
+	
+	protected static ArrayList<User> ReadAll(ResultSet rows) throws SQLException {
 		ArrayList<User> users = new ArrayList<>();
 
 		while (rows.next()) {
@@ -80,19 +98,15 @@ public class User implements Queryable {
 			if (rows.getString("phoneNo") != null) {
 				phoneNo = rows.getString("phoneNo");
 			}
-
-			if (withAddress) {
+			
 				users.add(new User(rows.getString("Username"), rows.getString("First Name"),
 						rows.getString("Last Name"), rows.getString("Address"), phoneNo, rows.getString("Email")));
-			} else {
-				users.add(new User(rows.getString("userName"), rows.getString("userFirstName"),
-						rows.getString("userLastName"), phoneNo, rows.getString("email")));
-			}
 
 		}
 
 		return users;
 	}
+	
 
 	public static void Delete() throws SQLException {
 		Connection conn = DBCon.getDbConn();
