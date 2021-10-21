@@ -165,7 +165,7 @@ public class Main extends Application {
 					userWindow.close();
 				}
 
-				if (!employeeNoEmpty()) {
+//				if (!employeeNoEmpty()) {
 					try {
 						userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
 					} catch (SQLException e) {
@@ -175,7 +175,8 @@ public class Main extends Application {
 
 				}
 
-			});
+//			}
+		);
 
 //======================= Main UI Arrangement =========================================
 
