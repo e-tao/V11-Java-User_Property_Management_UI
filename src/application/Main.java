@@ -28,8 +28,7 @@ public class Main extends Application {
 
 	private Booking bookingTable = new Booking();
 	private Property propertyTable = new Property();
-	private User userTable = new User();
-	private User opUser;
+	private User opUser = new User();
 
 	private SecLevelWindow bookingWindow;
 	private SecLevelWindow propertyWindow;
@@ -166,7 +165,7 @@ public class Main extends Application {
 
 //				if (!employeeNoEmpty()) {
 				try {
-					userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
+					userWindow = new SecLevelWindow(opUser.tableGenerator(), true);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
