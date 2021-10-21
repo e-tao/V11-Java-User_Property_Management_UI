@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UserSubWindow {
+public class UserUpdateSubWindow {
 
 	private Parent root;
 	private Stage stage;
@@ -35,7 +35,7 @@ public class UserSubWindow {
 
 	Employee op = new Employee(Main.getEmployeeNo());
 
-	public UserSubWindow(SecLevelWindow parent) {
+	public UserUpdateSubWindow(SecLevelWindow parent) {
 
 		int width = 280;
 		int height = 350;
