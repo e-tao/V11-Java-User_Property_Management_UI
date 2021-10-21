@@ -42,14 +42,20 @@ public class Property implements Queryable {
 
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-		ResultSet result = q.executeQuery();
+		ResultSet rows = q.executeQuery();
+
+		return ReadAll(rows);
+
+	}
+
+	protected static ArrayList<Property> ReadAll(ResultSet rows) throws SQLException {
 
 		ArrayList<Property> properties = new ArrayList<>();
 
-		while (result.next()) {
+		while (rows.next()) {
 
-			properties.add(new Property(result.getString("Property Name"), result.getString("Address"),
-					result.getInt("Rooms")));
+			properties.add(
+					new Property(rows.getString("Property Name"), rows.getString("Address"), rows.getInt("Rooms")));
 		}
 
 		return properties;
