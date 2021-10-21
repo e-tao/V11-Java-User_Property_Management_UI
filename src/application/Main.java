@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import application.Model.Booking;
 import application.Model.Employee;
+import application.Model.Log;
 import application.Model.Property;
 import application.Model.User;
 import application.View.MessageBox;
@@ -30,11 +31,13 @@ public class Main extends Application {
 	private Booking bookingTable = new Booking();
 	private Property propertyTable = new Property();
 	private User userTable = new User();
+	private Log logTable = new Log();
 	private static Employee operator;
 
 	private SecLevelWindow bookingWindow;
 	private SecLevelWindow propertyWindow;
 	private SecLevelWindow userWindow;
+	private SecLevelWindow logWindow;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -174,6 +177,20 @@ public class Main extends Application {
 				}
 //				System.out.println(operator.getEmployeeNumber());
 
+			});
+
+			log.setOnAction((ae) -> {
+				if (logWindow != null) {
+					logWindow.close();
+				}
+				try {
+					logWindow = new SecLevelWindow(logTable.tableGenerator(), false);
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+
+				logWindow.show();
 			});
 
 //======================= Main UI Arrangement =========================================
