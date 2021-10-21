@@ -29,12 +29,11 @@ public class Main extends Application {
 	private Booking bookingTable = new Booking();
 	private Property propertyTable = new Property();
 	private User userTable = new User();
+	private User opUser;
 
 	private SecLevelWindow bookingWindow;
 	private SecLevelWindow propertyWindow;
 	private SecLevelWindow userWindow;
-
-	private static String employeeNnumber;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -80,7 +79,7 @@ public class Main extends Application {
 			employeeNo.setPrefWidth(buttonW + 10);
 			employeeNo.setPromptText("8 digits and PRESS ENTER!");
 			employeeNo.setFocusTraversable(false);
-			employeeNnumber = employeeNo.getText();
+			opUser.setEmployeeNnumber(employeeNo.getText());
 
 			Separator separator = new Separator();
 			Label prompt = new Label("Press Alt Key to show keyboard shortcuts");
@@ -127,7 +126,7 @@ public class Main extends Application {
 
 //================================ OnActions configuration start =======================
 			employeeNo.setOnAction((ae) -> {
-				employeeNnumber = employeeNo.getText();
+				opUser.setEmployeeNnumber(employeeNo.getText());
 			});
 
 			booking.setOnAction((ae) -> {
@@ -166,17 +165,17 @@ public class Main extends Application {
 				}
 
 //				if (!employeeNoEmpty()) {
-					try {
-						userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					userWindow.show();
-
+				try {
+					userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
+				userWindow.show();
+
+			}
 
 //			}
-		);
+			);
 
 //======================= Main UI Arrangement =========================================
 
@@ -230,17 +229,13 @@ public class Main extends Application {
 	}
 
 	public boolean employeeNoEmpty() {
-		if (employeeNnumber.isEmpty() || !employeeNnumber.matches("[0-9]+") || employeeNnumber.length() != 8) {
+		if (opUser.getEmployeeNnumber().isEmpty() || !opUser.getEmployeeNnumber().matches("[0-9]+")
+				|| opUser.getEmployeeNnumber().length() != 8) {
 			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER IS EMPTY",
 					"Enter your Employee Number and PRESS RETURN to continue.", "");
 			return true;
 		}
 		return false;
-	}
-
-	public static String getEmployeeNnumber() {
-
-		return employeeNnumber;
 	}
 
 }

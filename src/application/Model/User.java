@@ -19,6 +19,11 @@ public class User implements Queryable {
 
 	private Queryable user;
 	private TableView<Queryable> userTable;
+	private String employeeNnumber;
+
+	public String getEmployeeNnumber() {
+		return employeeNnumber;
+	}
 
 	public User() {
 
@@ -54,7 +59,6 @@ public class User implements Queryable {
 		return ReadAll(rows);
 
 	}
-	
 
 	public static ArrayList<String> GetUser(String username) throws SQLException {
 
@@ -70,25 +74,24 @@ public class User implements Queryable {
 
 		ArrayList<String> userAttributes = new ArrayList<>();
 		while (rows.next()) {
-					
-				userAttributes.add(rows.getString("userName"));
-				userAttributes.add(rows.getString("userFirstName"));
-				userAttributes.add(rows.getString("userLastName"));
-				
-				String phoneNo = "0";
-				if (rows.getString("phoneNo") != null) {
-					phoneNo = rows.getString("phoneNo");
-				}
-				userAttributes.add(phoneNo);
-				userAttributes.add(rows.getString("email"));
-			
+
+			userAttributes.add(rows.getString("userName"));
+			userAttributes.add(rows.getString("userFirstName"));
+			userAttributes.add(rows.getString("userLastName"));
+
+			String phoneNo = "0";
+			if (rows.getString("phoneNo") != null) {
+				phoneNo = rows.getString("phoneNo");
 			}
-		
-		return userAttributes;
-		
+			userAttributes.add(phoneNo);
+			userAttributes.add(rows.getString("email"));
+
 		}
-	
-	
+
+		return userAttributes;
+
+	}
+
 	protected static ArrayList<User> ReadAll(ResultSet rows) throws SQLException {
 		ArrayList<User> users = new ArrayList<>();
 
@@ -98,15 +101,14 @@ public class User implements Queryable {
 			if (rows.getString("phoneNo") != null) {
 				phoneNo = rows.getString("phoneNo");
 			}
-			
-				users.add(new User(rows.getString("Username"), rows.getString("First Name"),
-						rows.getString("Last Name"), rows.getString("Address"), phoneNo, rows.getString("Email")));
+
+			users.add(new User(rows.getString("Username"), rows.getString("First Name"), rows.getString("Last Name"),
+					rows.getString("Address"), phoneNo, rows.getString("Email")));
 
 		}
 
 		return users;
 	}
-	
 
 	public static void Delete() throws SQLException {
 		Connection conn = DBCon.getDbConn();
@@ -114,6 +116,25 @@ public class User implements Queryable {
 		q.setInt(1, 0);
 
 		q.execute();
+	}
+
+	public static int Update(User user) throws SQLException {
+		if (!user.username.isBlank()) {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q = conn.prepareStatement(
+					"UPDATE `user` SET `userFirstName`=?, `userLastName`=?, `phoneNo`=?,`email`=?  WHERE  `username`=?;");
+
+			q.setString(1, user.userFirstName);
+			q.setString(2, user.userLastName);
+			q.setString(3, user.phoneNo);
+			q.setString(4, user.emaiAddr);
+			q.setString(5, user.username);
+
+			return q.executeUpdate();
+		}
+
+		return 0;
+
 	}
 
 	public LinkedHashMap<String, String> updateAttribute() {
@@ -179,6 +200,26 @@ public class User implements Queryable {
 
 	public String getPhoneNo() {
 		return phoneNo;
+	}
+
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
+	}
+
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+
+	public void setEmaiAddr(String emaiAddr) {
+		this.emaiAddr = emaiAddr;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public void setEmployeeNnumber(String employeeNnumber) {
+		this.employeeNnumber = employeeNnumber;
 	}
 
 	public String toString() {
