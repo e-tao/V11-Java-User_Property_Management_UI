@@ -3,6 +3,7 @@ package application.Model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -11,12 +12,11 @@ public class Log {
 
 	private String employeeNumber;
 	private String event;
-	private LocalDateTime now;
 
 	public Log(String employeeNumber, String event, LocalDateTime now) {
 		this.employeeNumber = employeeNumber;
 		this.event = event;
-		this.now = now;
+
 	}
 
 	public void setEmployeeNumber(String employeeNumber) {
@@ -27,11 +27,7 @@ public class Log {
 		this.event = event;
 	}
 
-	public void setNow(LocalDateTime now) {
-		this.now = now;
-	}
-
-	public static void addLog(Log log) throws SQLException {
+	public static int addLog(Log log) throws SQLException {
 		Connection conn = DBCon.getDbConn();
 
 		PreparedStatement q = conn.prepareStatement("INSERT INTO `log` (`Employee`, `Event`, `Time`) VALUES (?, ?, ?);",
@@ -42,6 +38,12 @@ public class Log {
 		q.setDate(3, Date.valueOf(LocalDateTime.now().toLocalDate()));
 
 		q.executeUpdate();
+
+		ResultSet genKey = q.getGeneratedKeys();
+		genKey.next();
+		int logID = genKey.getInt(1);
+
+		return logID;
 
 	}
 

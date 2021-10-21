@@ -101,8 +101,12 @@ public class UserSubWindow {
 
 				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(),
 						LocalDateTime.now());
+				int logID = Log.addLog(log);
 
-				Log.addLog(log);
+				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
+						"You have successfully updated user recored",
+						getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
