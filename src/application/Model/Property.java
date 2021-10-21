@@ -10,8 +10,6 @@ import java.util.LinkedHashMap;
 import application.View.ViewGenerator;
 import javafx.scene.control.TableView;
 
-//SELECT `propertyName` AS `Property Name`, CONCAT_WS(',', propertyAddrSuitNo, propertyAddrNo, propertyAddrStreet, propertyAddrCity, propertyAddrProv, propertyAddrCountry, propertyPostalCode) AS `Address`, `noOfRooms` AS `Rooms` FROM property
-
 public class Property implements Queryable {
 
 	private String propertyName, address;

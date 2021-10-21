@@ -10,13 +10,12 @@ public interface Queryable {
 	public LinkedHashMap<String, String> getTableAttribute();
 
 	// In order to preserve the Order of the HashMap, the LinkedHashMap is used.
-	// it's hard coded into the program. It uses related instant variables
-	// (usually those include in the constructor) of the implementing Class as key
-	// and SQL query attributes as value;
+	// The Map uses instant variables (usually those include in the constructor)
+	// of the implementing Class as key and SQL query attributes as value;
 	//
 	// When the ViewGenerator.getView() is called, the getTableAttribute() inside
-	// the method returns HashTab, the values are used to generate TableColumn
-	// titles, and keys are used for PropertyValueFactory;
+	// the method returns a LinkedHashMap, the values are used to generate
+	// TableColumn titles, and keys are used for PropertyValueFactory;
 
 	public TableView<Queryable> tableGenerator() throws SQLException;
 

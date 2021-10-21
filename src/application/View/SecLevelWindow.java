@@ -21,10 +21,6 @@ public class SecLevelWindow {
 
 	UserSubWindow updateWindow;
 
-	// private TableView<Queryable> table;
-	// private ViewGenerator view;
-	// TableView<Queryable> table, ViewGenerator view
-
 	public SecLevelWindow(TableView<Queryable> table, boolean withButtons) {
 
 		int width = 800;
@@ -45,16 +41,12 @@ public class SecLevelWindow {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				// System.out.println(Main.getEmployeeNnumber() + " deleted a record at " +
-				// LocalDateTime.now());
+
 			});
 
 			update.setOnAction((ae) -> {
-
 				updateWindow = new UserSubWindow(this);
-
 				updateWindow.show();
-
 			});
 
 			hBox.setSpacing(80);

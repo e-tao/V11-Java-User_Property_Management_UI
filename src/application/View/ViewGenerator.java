@@ -7,9 +7,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ViewGenerator {
 
-//	Booking booking = new Booking();
-//	TableColumn<Booking, String> column;
-
 	public static TableView<Queryable> getView(Queryable item) {
 		TableColumn<Queryable, String> column;
 		TableView<Queryable> table = new TableView<>();
