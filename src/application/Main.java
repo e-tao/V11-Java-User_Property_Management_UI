@@ -2,8 +2,11 @@ package application;
 
 import java.sql.SQLException;
 
-import application.Model.*;
-import application.View.*;
+import application.Model.Booking;
+import application.Model.Property;
+import application.Model.User;
+import application.View.MessageBox;
+import application.View.SecLevelWindow;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -101,7 +104,7 @@ public class Main extends Application {
 
 			String bgStyle = "-fx-background-color: BurlyWood; -fx-font-size:13px;";
 
-			Tooltip bookingTip = new Tooltip("Manage Bookings");
+			Tooltip bookingTip = new Tooltip("View All Bookings");
 			bookingTip.setStyle(bgStyle);
 			booking.setTooltip(bookingTip);
 
@@ -109,11 +112,11 @@ public class Main extends Application {
 			userTip.setStyle(bgStyle);
 			user.setTooltip(userTip);
 
-			Tooltip propertyTip = new Tooltip("Manage Available Properties");
+			Tooltip propertyTip = new Tooltip("View All Properties");
 			propertyTip.setStyle(bgStyle);
 			property.setTooltip(propertyTip);
 
-			Tooltip logTip = new Tooltip("System Logs");
+			Tooltip logTip = new Tooltip("User Activity Logs");
 			logTip.setStyle(bgStyle);
 			log.setTooltip(logTip);
 

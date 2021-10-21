@@ -2,7 +2,8 @@ package application.View;
 
 import java.sql.SQLException;
 
-import application.Model.*;
+import application.Model.Queryable;
+import application.Model.User;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ public class SecLevelWindow {
 	private Parent root;
 	private Stage stage;
 	private Scene scene;
-	
+
 	UserSubWindow updateWindow;
 
 	// private TableView<Queryable> table;
@@ -47,14 +48,13 @@ public class SecLevelWindow {
 				// System.out.println(Main.getEmployeeNnumber() + " deleted a record at " +
 				// LocalDateTime.now());
 			});
-			
-			update.setOnAction((ae)->{
-				
-				updateWindow = new UserSubWindow(this);
 
-				
+			update.setOnAction((ae) -> {
+
+				updateWindow = new UserSubWindow(this);
+				updateWindow.show();
+
 			});
-			
 
 			hBox.setSpacing(80);
 			hBox.setPrefHeight(100);
@@ -77,6 +77,10 @@ public class SecLevelWindow {
 
 	public void close() {
 		stage.close();
+	}
+
+	public Stage getStage() {
+		return stage;
 	}
 
 }

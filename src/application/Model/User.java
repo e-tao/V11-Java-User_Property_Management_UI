@@ -24,12 +24,18 @@ public class User implements Queryable {
 
 	}
 
-	public User(String username, String userFirstName, String userLastName, String mailAddr, String emaiAddr) {
+	public User(String username, String userFirstName, String userLastName, String phoneNo, String emaiAddr) {
 		this.username = username;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
-		this.mailAddr = mailAddr;
 		this.emaiAddr = emaiAddr;
+		this.phoneNo = phoneNo;
+	}
+
+	public User(String username, String userFirstName, String userLastName, String mailAddr, String phoneNo,
+			String emaiAddr) {
+		this(username, userFirstName, userLastName, phoneNo, emaiAddr);
+		this.mailAddr = mailAddr;
 	}
 
 	public static ArrayList<User> GetUser() throws SQLException {
@@ -39,22 +45,53 @@ public class User implements Queryable {
 		PreparedStatement q = conn.prepareStatement(
 				"SELECT `userName` AS `Username`, `userFirstName` AS `First Name`, `userLastName` AS `Last Name`, "
 						+ "CONCAT_WS(', ', mailAddrSuitNo, mailAddrStreetNo, mailAddrStreet, mailAddrCity, mailAddrProv, mailAddrCountry, mailPostalCode) AS `Address`, "
-						+ "email AS `Email` FROM user;",
+						+ "email AS `Email`, `phoneNo` AS `Phone Number` FROM user;",
 
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-		ResultSet result = q.executeQuery();
+		ResultSet rows = q.executeQuery();
 
+		return ReadAll(rows, true);
+
+	}
+
+	public static ArrayList<User> GetUser(String username) throws SQLException {
+
+		Connection conn = DBCon.getDbConn();
+
+		PreparedStatement q = conn.prepareStatement(
+				"SELECT userName, userFirstName, userLastName, phoneNo, email FROM user WHERE userName= ?;",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+		q.setString(1, username);
+
+		ResultSet rows = q.executeQuery();
+
+		return ReadAll(rows, false);
+
+	}
+
+	protected static ArrayList<User> ReadAll(ResultSet rows, boolean withAddress) throws SQLException {
 		ArrayList<User> users = new ArrayList<>();
 
-		while (result.next()) {
+		while (rows.next()) {
 
-			users.add(new User(result.getString("Username"), result.getString("First Name"),
-					result.getString("Last Name"), result.getString("Address"), result.getString("Email")));
+			String phoneNo = "";
+			if (rows.getString("phoneNo") != null) {
+				phoneNo = rows.getString("phoneNo");
+			}
+
+			if (withAddress) {
+				users.add(new User(rows.getString("Username"), rows.getString("First Name"),
+						rows.getString("Last Name"), rows.getString("Address"), phoneNo, rows.getString("Email")));
+			} else {
+				users.add(new User(rows.getString("userName"), rows.getString("userFirstName"),
+						rows.getString("userLastName"), phoneNo, rows.getString("email")));
+			}
+
 		}
 
 		return users;
-
 	}
 
 	public static void Delete() throws SQLException {
@@ -64,7 +101,7 @@ public class User implements Queryable {
 
 		q.execute();
 	}
-	
+
 	public LinkedHashMap<String, String> updateAttribute() {
 		tableAttribute = new LinkedHashMap<>();
 		tableAttribute.put("username", "Username");
@@ -75,7 +112,7 @@ public class User implements Queryable {
 
 		return tableAttribute;
 	}
-	
+
 	@Override
 	public LinkedHashMap<String, String> getTableAttribute() {
 		tableAttribute = new LinkedHashMap<>();
@@ -84,6 +121,7 @@ public class User implements Queryable {
 		tableAttribute.put("userLastName", "Last Name");
 		tableAttribute.put("mailAddr", "Address");
 		tableAttribute.put("emaiAddr", "Email Address");
+		tableAttribute.put("phoneNo", "Phone No");
 
 		return tableAttribute;
 	}
@@ -124,12 +162,13 @@ public class User implements Queryable {
 	public String getEmaiAddr() {
 		return emaiAddr;
 	}
-	
-	public String getPhone() {
+
+	public String getPhoneNo() {
 		return phoneNo;
 	}
-	
 
-	
+	public String toString() {
+		return String.format("%s, %s, %s, %s, %s", username, userFirstName, userLastName, phoneNo, emaiAddr);
+	}
 
 }
