@@ -1,7 +1,8 @@
 package application.View;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import application.Main;
@@ -99,8 +100,8 @@ public class UserSubWindow {
 
 //				System.out.println(Main.getEmployeeNo());
 
-				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(),
-						LocalDateTime.now());
+				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
+						LocalTime.now());
 				int logID = Log.addLog(log);
 
 				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
