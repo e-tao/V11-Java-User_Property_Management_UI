@@ -39,15 +39,20 @@ public class Booking implements Queryable {
 		PreparedStatement q = conn.prepareStatement(
 				"select `property`.`propertyName` AS `Property Name`,`booking`.`bookedFrom` AS `Reserved From`,`booking`.`bookedUntil` AS `Reserved Until`,concat_ws(' ',`user`.`userFirstName`,`user`.`userLastName`) AS `Reserved By`,`booking`.`paymentDate` AS `Reserved On` from ((`booking` join `property` on(`property`.`propertyID` = `booking`.`propertyID`)) join `user` on(`user`.`userID` = `booking`.`UserID`)) where `booking`.`paymentDate` is not null;",
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		ResultSet result = q.executeQuery();
+		ResultSet rows = q.executeQuery();
 
+		return ReadAll(rows);
+
+	}
+
+	protected static ArrayList<Booking> ReadAll(ResultSet rows) throws SQLException {
 		ArrayList<Booking> bookings = new ArrayList<>();
 
-		while (result.next()) {
+		while (rows.next()) {
 
-			bookings.add(new Booking(result.getString("Property Name"), result.getDate("Reserved On").toLocalDate(),
-					result.getString("Reserved By"), result.getDate("Reserved From").toLocalDate(),
-					result.getDate("Reserved Until").toLocalDate()));
+			bookings.add(new Booking(rows.getString("Property Name"), rows.getDate("Reserved On").toLocalDate(),
+					rows.getString("Reserved By"), rows.getDate("Reserved From").toLocalDate(),
+					rows.getDate("Reserved Until").toLocalDate()));
 		}
 
 		return bookings;
