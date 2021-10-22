@@ -62,25 +62,30 @@ public class Log implements Queryable {
 		return logs;
 	}
 
-	public static int addLog(Log log) throws SQLException {
-		Connection conn = DBCon.getDbConn();
+	public static int addLog(Log log) {
+		try {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement("INSERT INTO `log` (`employee`, `event`, `date`, `time`) VALUES (?, ?, ?, ?);",
+					Statement.RETURN_GENERATED_KEYS);
 
-		PreparedStatement q = conn.prepareStatement(
-				"INSERT INTO `log` (`employee`, `event`, `date`, `time`) VALUES (?, ?, ?, ?);",
-				Statement.RETURN_GENERATED_KEYS);
+			q.setString(1, log.employee);
+			q.setString(2, log.event);
+			q.setDate(3, Date.valueOf(LocalDate.now()));
+			q.setTime(4, Time.valueOf(LocalTime.now()));
 
-		q.setString(1, log.employee);
-		q.setString(2, log.event);
-		q.setDate(3, Date.valueOf(LocalDate.now()));
-		q.setTime(4, Time.valueOf(LocalTime.now()));
+			q.executeUpdate();
 
-		q.executeUpdate();
+			ResultSet genKey = q.getGeneratedKeys();
+			genKey.next();
+			int logID = genKey.getInt(1);
 
-		ResultSet genKey = q.getGeneratedKeys();
-		genKey.next();
-		int logID = genKey.getInt(1);
-
-		return logID;
+			return logID;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 
 	}
 

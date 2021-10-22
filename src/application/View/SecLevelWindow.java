@@ -1,9 +1,6 @@
 package application.View;
 
-import java.sql.SQLException;
-
 import application.Model.Queryable;
-import application.Model.User;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +17,7 @@ public class SecLevelWindow {
 	private Scene scene;
 
 	UserUpdateSubWindow updateWindow;
+	UserDelSubWindow deleteWindow;
 
 	public SecLevelWindow(TableView<Queryable> table, boolean withButtons) {
 
@@ -36,12 +34,9 @@ public class SecLevelWindow {
 			Button update = new Button("UPDATE");
 
 			delete.setOnAction((ae) -> {
-				try {
-					User.Delete();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
+				// User.Delete();
+				deleteWindow = new UserDelSubWindow(this);
+				deleteWindow.show();
 			});
 
 			update.setOnAction((ae) -> {

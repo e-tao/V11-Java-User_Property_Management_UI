@@ -105,12 +105,31 @@ public class User implements Queryable {
 		return users;
 	}
 
-	public static void Delete() throws SQLException {
-		Connection conn = DBCon.getDbConn();
-		PreparedStatement q = conn.prepareStatement("DELETE FROM `user` WHERE accountActivation= ?;");
-		q.setInt(1, 0);
+	public static void Purge() {
+		try {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement("DELETE FROM `user` WHERE accountActivation= ?;");
+			q.setInt(1, 0);
+			q.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-		q.execute();
+	public static void Delete(String username) {
+
+		try {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement("DELETE FROM `user` WHERE username = ?;");
+			q.setString(1, username);
+			q.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static int Update(User user) throws SQLException {
