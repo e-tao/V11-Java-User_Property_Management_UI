@@ -72,7 +72,7 @@ public class User implements Queryable {
 				userAttributes.add(rows.getString("userName"));
 				userAttributes.add(rows.getString("userFirstName"));
 				userAttributes.add(rows.getString("userLastName"));
-				String phoneNo = "0";
+				String phoneNo = "-";
 				if (rows.getString("phoneNo") != null) {
 					phoneNo = rows.getString("phoneNo");
 				}
