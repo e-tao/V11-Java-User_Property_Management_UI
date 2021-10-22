@@ -60,7 +60,6 @@ public class UserDelSubWindow {
 				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
 						"Enter the username you want to delete", "");
 			} else {
-//				System.out.println("delete user");
 				User.Delete(username);
 				log = new Log(Main.getEmployeeNo(), "user " + username + "is deleted", LocalDate.now(),
 						LocalTime.now());
@@ -74,9 +73,6 @@ public class UserDelSubWindow {
 
 		purge.setOnAction((ae) -> {
 			User.Purge();
-
-//				System.out.println(Main.getEmployeeNo());
-
 			log = new Log(Main.getEmployeeNo(), "Purge inactive user", LocalDate.now(), LocalTime.now());
 			int logID = Log.addLog(log);
 
