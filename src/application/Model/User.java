@@ -55,35 +55,43 @@ public class User implements Queryable {
 
 	}
 
-	public static ArrayList<String> GetUser(String username) throws SQLException {
+	public static ArrayList<String> GetUser(String username) {
+		try {
+			Connection conn = DBCon.getDbConn();
 
-		Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
 
-		PreparedStatement q = conn.prepareStatement(
-				"SELECT userName, userFirstName, userLastName, phoneNo, email FROM user WHERE userName= ?;",
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			q = conn.prepareStatement(
+					"SELECT userName, userFirstName, userLastName, phoneNo, email FROM user WHERE userName= ?;",
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-		q.setString(1, username);
+			q.setString(1, username);
 
-		ResultSet rows = q.executeQuery();
+			ResultSet rows = q.executeQuery();
 
-		ArrayList<String> userAttributes = new ArrayList<>();
-		while (rows.next()) {
+			ArrayList<String> userAttributes = new ArrayList<>();
+			while (rows.next()) {
 
-			userAttributes.add(rows.getString("userName"));
-			userAttributes.add(rows.getString("userFirstName"));
-			userAttributes.add(rows.getString("userLastName"));
+				userAttributes.add(rows.getString("userName"));
+				userAttributes.add(rows.getString("userFirstName"));
+				userAttributes.add(rows.getString("userLastName"));
 
-			String phoneNo = "0";
-			if (rows.getString("phoneNo") != null) {
-				phoneNo = rows.getString("phoneNo");
+				String phoneNo = "0";
+				if (rows.getString("phoneNo") != null) {
+					phoneNo = rows.getString("phoneNo");
+				}
+				userAttributes.add(phoneNo);
+				userAttributes.add(rows.getString("email"));
+
 			}
-			userAttributes.add(phoneNo);
-			userAttributes.add(rows.getString("email"));
 
+			return userAttributes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		return userAttributes;
+		return null;
 
 	}
 

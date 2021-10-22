@@ -60,13 +60,20 @@ public class UserDelSubWindow {
 				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
 						"Enter the username you want to delete", "");
 			} else {
-				User.Delete(username);
-				log = new Log(Main.getEmployeeNo(), "user " + username + "is deleted", LocalDate.now(),
-						LocalTime.now());
-				int logID = Log.addLog(log);
 
-				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORDS DELETED",
-						"You have successfully deleted user: " + username + ", LogID: " + logID, "");
+				if (User.GetUser(txtFd.getText()).size() != 0) {
+					User.Delete(username);
+					log = new Log(Main.getEmployeeNo(), "user " + username + " is deleted", LocalDate.now(),
+							LocalTime.now());
+					int logID = Log.addLog(log);
+
+					MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORDS DELETED",
+							"You have successfully deleted user: " + username + ", LogID: " + logID, "");
+
+				} else {
+					MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
+							"The username entered does not exist in the database.", "");
+				}
 
 			}
 		});

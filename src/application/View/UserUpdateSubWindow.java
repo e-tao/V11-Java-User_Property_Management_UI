@@ -76,16 +76,15 @@ public class UserUpdateSubWindow {
 				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
 						"Enter the username you want to update", "");
 			} else {
+				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
+				if (userAttributes.size() != 0) {
+					for (int i = 1; i < updateTxtFd.size(); i++) {
+						updateTxtFd.get(i).setText(userAttributes.get(i));
 
-				try {
-					userAttributes = User.GetUser(updateTxtFd.get(0).getText());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				for (int i = 1; i < updateTxtFd.size(); i++) {
-					updateTxtFd.get(i).setText(userAttributes.get(i));
-
+					}
+				} else {
+					MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
+							"The username entered does not exist in the database.", "");
 				}
 
 			}
