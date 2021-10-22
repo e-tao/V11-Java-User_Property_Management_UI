@@ -38,21 +38,22 @@ public class User implements Queryable {
 		this.mailAddr = mailAddr;
 	}
 
-	public static ArrayList<User> GetUser() throws SQLException {
-
-		Connection conn = DBCon.getDbConn();
-
-		PreparedStatement q = conn.prepareStatement(
-				"SELECT `userName` AS `Username`, `userFirstName` AS `First Name`, `userLastName` AS `Last Name`, "
-						+ "CONCAT_WS(', ', mailAddrSuitNo, mailAddrStreetNo, mailAddrStreet, mailAddrCity, mailAddrProv, mailAddrCountry, mailPostalCode) AS `Address`, "
-						+ "email AS `Email`, `phoneNo` AS `Phone Number` FROM user;",
-
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-		ResultSet rows = q.executeQuery();
-
-		return ReadAll(rows);
-
+	public static ArrayList<User> GetUser() {
+		try {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement(
+					"SELECT `userName` AS `Username`, `userFirstName` AS `First Name`, `userLastName` AS `Last Name`, "
+							+ "CONCAT_WS(', ', mailAddrSuitNo, mailAddrStreetNo, mailAddrStreet, mailAddrCity, mailAddrProv, mailAddrCountry, mailPostalCode) AS `Address`, "
+							+ "email AS `Email`, `phoneNo` AS `Phone Number` FROM user;",
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rows = q.executeQuery();
+			return ReadAll(rows);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static ArrayList<String> GetUser(String username) {
@@ -64,53 +65,43 @@ public class User implements Queryable {
 			q = conn.prepareStatement(
 					"SELECT userName, userFirstName, userLastName, phoneNo, email FROM user WHERE userName= ?;",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
 			q.setString(1, username);
-
 			ResultSet rows = q.executeQuery();
-
 			ArrayList<String> userAttributes = new ArrayList<>();
 			while (rows.next()) {
-
 				userAttributes.add(rows.getString("userName"));
 				userAttributes.add(rows.getString("userFirstName"));
 				userAttributes.add(rows.getString("userLastName"));
-
 				String phoneNo = "0";
 				if (rows.getString("phoneNo") != null) {
 					phoneNo = rows.getString("phoneNo");
 				}
 				userAttributes.add(phoneNo);
 				userAttributes.add(rows.getString("email"));
-
 			}
-
 			return userAttributes;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
 
-	protected static ArrayList<User> ReadAll(ResultSet rows) throws SQLException {
-		ArrayList<User> users = new ArrayList<>();
-
-		while (rows.next()) {
-
-			String phoneNo = "";
-			if (rows.getString("phoneNo") != null) {
-				phoneNo = rows.getString("phoneNo");
+	protected static ArrayList<User> ReadAll(ResultSet rows) {
+		try {
+			ArrayList<User> users = new ArrayList<>();
+			while (rows.next()) {
+				String phoneNo = "";
+				if (rows.getString("phoneNo") != null) {
+					phoneNo = rows.getString("phoneNo");
+				}
+				users.add(new User(rows.getString("Username"), rows.getString("First Name"),
+						rows.getString("Last Name"), rows.getString("Address"), phoneNo, rows.getString("Email")));
 			}
-
-			users.add(new User(rows.getString("Username"), rows.getString("First Name"), rows.getString("Last Name"),
-					rows.getString("Address"), phoneNo, rows.getString("Email")));
-
+			return users;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return users;
+		return null;
 	}
 
 	public static void Purge() {
@@ -140,21 +131,23 @@ public class User implements Queryable {
 		}
 	}
 
-	public static int Update(User user) throws SQLException {
-		if (!user.username.isBlank()) {
-			Connection conn = DBCon.getDbConn();
-			PreparedStatement q = conn.prepareStatement(
-					"UPDATE `user` SET `userFirstName`=?, `userLastName`=?, `phoneNo`=?,`email`=?  WHERE  `username`=?;");
-
-			q.setString(1, user.userFirstName);
-			q.setString(2, user.userLastName);
-			q.setString(3, user.phoneNo);
-			q.setString(4, user.emaiAddr);
-			q.setString(5, user.username);
-
-			return q.executeUpdate();
+	public static int Update(User user) {
+		try {
+			if (!user.username.isBlank()) {
+				Connection conn = DBCon.getDbConn();
+				PreparedStatement q;
+				q = conn.prepareStatement(
+						"UPDATE `user` SET `userFirstName`=?, `userLastName`=?, `phoneNo`=?,`email`=?  WHERE  `username`=?;");
+				q.setString(1, user.userFirstName);
+				q.setString(2, user.userLastName);
+				q.setString(3, user.phoneNo);
+				q.setString(4, user.emaiAddr);
+				q.setString(5, user.username);
+				return q.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
 		return 0;
 
 	}
@@ -184,7 +177,7 @@ public class User implements Queryable {
 	}
 
 	@Override
-	public TableView<Queryable> tableGenerator() throws SQLException {
+	public TableView<Queryable> tableGenerator() {
 		user = new User();
 		userTable = new TableView<>();
 

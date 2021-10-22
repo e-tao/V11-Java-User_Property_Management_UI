@@ -37,29 +37,33 @@ public class Log implements Queryable {
 		this.opTime = opTime;
 	}
 
-	public static ArrayList<Log> GetLog() throws SQLException {
+	public static ArrayList<Log> GetLog() {
+		try {
 
-		Connection conn = DBCon.getDbConn();
-
-		PreparedStatement q = conn.prepareStatement("SELECT `employee`, `event`, `date`, `time` FROM log;",
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		ResultSet rows = q.executeQuery();
-
-		return ReadAll(rows);
-
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement("SELECT `employee`, `event`, `date`, `time` FROM log;",
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rows = q.executeQuery();
+			return ReadAll(rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	protected static ArrayList<Log> ReadAll(ResultSet rows) throws SQLException {
-		ArrayList<Log> logs = new ArrayList<>();
-
-		while (rows.next()) {
-
-			logs.add(new Log(rows.getString("employee"), rows.getString("event"), rows.getDate("date").toLocalDate(),
-					rows.getTime("time").toLocalTime()));
-
+	protected static ArrayList<Log> ReadAll(ResultSet rows) {
+		try {
+			ArrayList<Log> logs = new ArrayList<>();
+			while (rows.next()) {
+				logs.add(new Log(rows.getString("employee"), rows.getString("event"),
+						rows.getDate("date").toLocalDate(), rows.getTime("time").toLocalTime()));
+			}
+			return logs;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return logs;
+		return null;
 	}
 
 	public static int addLog(Log log) {
@@ -82,7 +86,6 @@ public class Log implements Queryable {
 
 			return logID;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -100,7 +103,7 @@ public class Log implements Queryable {
 	}
 
 	@Override
-	public TableView<Queryable> tableGenerator() throws SQLException {
+	public TableView<Queryable> tableGenerator() {
 		log = new Log();
 		logTable = new TableView<>();
 

@@ -30,34 +30,34 @@ public class Property implements Queryable {
 		this.rooms = rooms;
 	}
 
-	public static ArrayList<Property> GetProperty() throws SQLException {
-
-		Connection conn = DBCon.getDbConn();
-
-		PreparedStatement q = conn.prepareStatement("SELECT `propertyName` AS `Property Name`,"
-				+ "CONCAT_WS(',', propertyAddrSuitNo, propertyAddrNo, propertyAddrStreet, propertyAddrCity, propertyAddrProv, propertyAddrCountry, propertyPostalCode) AS `Address`,"
-				+ "`noOfRooms` AS `Rooms` FROM property;",
-
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-		ResultSet rows = q.executeQuery();
-
-		return ReadAll(rows);
-
+	public static ArrayList<Property> GetProperty() {
+		try {
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement("SELECT `propertyName` AS `Property Name`,"
+					+ "CONCAT_WS(',', propertyAddrSuitNo, propertyAddrNo, propertyAddrStreet, propertyAddrCity, propertyAddrProv, propertyAddrCountry, propertyPostalCode) AS `Address`,"
+					+ "`noOfRooms` AS `Rooms` FROM property;", ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			ResultSet rows = q.executeQuery();
+			return ReadAll(rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	protected static ArrayList<Property> ReadAll(ResultSet rows) throws SQLException {
-
-		ArrayList<Property> properties = new ArrayList<>();
-
-		while (rows.next()) {
-
-			properties.add(
-					new Property(rows.getString("Property Name"), rows.getString("Address"), rows.getInt("Rooms")));
+	protected static ArrayList<Property> ReadAll(ResultSet rows) {
+		try {
+			ArrayList<Property> properties = new ArrayList<>();
+			while (rows.next()) {
+				properties.add(
+						new Property(rows.getString("Property Name"), rows.getString("Address"), rows.getInt("Rooms")));
+			}
+			return properties;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return properties;
-
+		return null;
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class Property implements Queryable {
 	}
 
 	@Override
-	public TableView<Queryable> tableGenerator() throws SQLException {
+	public TableView<Queryable> tableGenerator() {
 		property = new Property();
 		propertyTable = new TableView<>();
 

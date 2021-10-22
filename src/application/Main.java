@@ -1,7 +1,5 @@
 package application;
 
-import java.sql.SQLException;
-
 import application.Model.Booking;
 import application.Model.Employee;
 import application.Model.Log;
@@ -134,11 +132,7 @@ public class Main extends Application {
 				if (bookingWindow != null) {
 					bookingWindow.close();
 				}
-				try {
-					bookingWindow = new SecLevelWindow(bookingTable.tableGenerator(), false);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				bookingWindow = new SecLevelWindow(bookingTable.tableGenerator(), false);
 
 				bookingWindow.show();
 
@@ -148,12 +142,7 @@ public class Main extends Application {
 				if (propertyWindow != null) {
 					propertyWindow.close();
 				}
-				try {
-					propertyWindow = new SecLevelWindow(propertyTable.tableGenerator(), false);
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
+				propertyWindow = new SecLevelWindow(propertyTable.tableGenerator(), false);
 
 				propertyWindow.show();
 			});
@@ -167,11 +156,7 @@ public class Main extends Application {
 				}
 
 				if (!employeeNoEmpty()) {
-					try {
-						userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					userWindow = new SecLevelWindow(userTable.tableGenerator(), true);
 					userWindow.show();
 
 				}
@@ -183,12 +168,7 @@ public class Main extends Application {
 				if (logWindow != null) {
 					logWindow.close();
 				}
-				try {
-					logWindow = new SecLevelWindow(logTable.tableGenerator(), false);
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
+				logWindow = new SecLevelWindow(logTable.tableGenerator(), false);
 
 				logWindow.show();
 			});

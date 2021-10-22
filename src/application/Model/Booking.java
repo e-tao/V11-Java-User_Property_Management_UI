@@ -32,30 +32,38 @@ public class Booking implements Queryable {
 		this.reservedOn = reservedOn;
 	}
 
-	public static ArrayList<Booking> GetBooking() throws SQLException {
+	public static ArrayList<Booking> GetBooking() {
+		try {
 
-		Connection conn = DBCon.getDbConn();
-
-		PreparedStatement q = conn.prepareStatement(
-				"select `property`.`propertyName` AS `Property Name`,`booking`.`bookedFrom` AS `Reserved From`,`booking`.`bookedUntil` AS `Reserved Until`,concat_ws(' ',`user`.`userFirstName`,`user`.`userLastName`) AS `Reserved By`,`booking`.`paymentDate` AS `Reserved On` from ((`booking` join `property` on(`property`.`propertyID` = `booking`.`propertyID`)) join `user` on(`user`.`userID` = `booking`.`UserID`)) where `booking`.`paymentDate` is not null;",
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		ResultSet rows = q.executeQuery();
-
-		return ReadAll(rows);
+			Connection conn = DBCon.getDbConn();
+			PreparedStatement q;
+			q = conn.prepareStatement(
+					"select `property`.`propertyName` AS `Property Name`,`booking`.`bookedFrom` AS `Reserved From`,`booking`.`bookedUntil` AS `Reserved Until`,concat_ws(' ',`user`.`userFirstName`,`user`.`userLastName`) AS `Reserved By`,`booking`.`paymentDate` AS `Reserved On` from ((`booking` join `property` on(`property`.`propertyID` = `booking`.`propertyID`)) join `user` on(`user`.`userID` = `booking`.`UserID`)) where `booking`.`paymentDate` is not null;",
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rows = q.executeQuery();
+			return ReadAll(rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 
-	protected static ArrayList<Booking> ReadAll(ResultSet rows) throws SQLException {
-		ArrayList<Booking> bookings = new ArrayList<>();
+	protected static ArrayList<Booking> ReadAll(ResultSet rows) {
+		try {
+			ArrayList<Booking> bookings = new ArrayList<>();
 
-		while (rows.next()) {
+			while (rows.next()) {
 
-			bookings.add(new Booking(rows.getString("Property Name"), rows.getDate("Reserved On").toLocalDate(),
-					rows.getString("Reserved By"), rows.getDate("Reserved From").toLocalDate(),
-					rows.getDate("Reserved Until").toLocalDate()));
+				bookings.add(new Booking(rows.getString("Property Name"), rows.getDate("Reserved On").toLocalDate(),
+						rows.getString("Reserved By"), rows.getDate("Reserved From").toLocalDate(),
+						rows.getDate("Reserved Until").toLocalDate()));
+			}
+			return bookings;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return bookings;
+		return null;
 
 	}
 
@@ -71,7 +79,7 @@ public class Booking implements Queryable {
 
 	}
 
-	public TableView<Queryable> tableGenerator() throws SQLException {
+	public TableView<Queryable> tableGenerator() {
 		booking = new Booking();
 		bookingTable = new TableView<>();
 

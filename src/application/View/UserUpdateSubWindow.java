@@ -1,6 +1,5 @@
 package application.View;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -91,25 +90,20 @@ public class UserUpdateSubWindow {
 		});
 
 		update.setOnAction((ae) -> {
-			try {
-				User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
-						updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
+			User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
+					updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
 
-				User.Update(modifiedUser);
+			User.Update(modifiedUser);
 
 //				System.out.println(Main.getEmployeeNo());
 
-				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
-						LocalTime.now());
-				int logID = Log.addLog(log);
+			log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
+					LocalTime.now());
+			int logID = Log.addLog(log);
 
-				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
-						"You have successfully updated user recored",
-						getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
+					"You have successfully updated user recored",
+					getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
 
 		});
 
