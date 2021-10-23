@@ -49,8 +49,8 @@ public class UserDelSubWindow {
 
 		root = vBox;
 
-		Button delete = new Button("DELETE");
-		Button purge = new Button("PURGE");
+		Button delete = new Button("_DELETE");
+		Button purge = new Button("_PURGE");
 
 		delete.setOnAction((ae) -> {
 

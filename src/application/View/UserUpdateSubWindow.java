@@ -67,8 +67,8 @@ public class UserUpdateSubWindow {
 			vBoxRight.setSpacing(30);
 		}
 
-		Button update = new Button("UPDATE");
-		Button query = new Button("QUERY");
+		Button update = new Button("_UPDATE");
+		Button query = new Button("_QUERY");
 
 		query.setOnAction((ae) -> {
 			if (updateTxtFd.get(0).getText().isEmpty()) {
