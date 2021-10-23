@@ -42,7 +42,8 @@ public class Log implements Queryable {
 
 			Connection conn = DBCon.getDbConn();
 			PreparedStatement q;
-			q = conn.prepareStatement("SELECT `employee`, `event`, `date`, `time` FROM log;",
+			q = conn.prepareStatement(
+					"SELECT `employee`, `event`, `date`, `time` FROM log ORDER BY `date` DESC, `time` DESC;",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rows = q.executeQuery();
 			return ReadAll(rows);
