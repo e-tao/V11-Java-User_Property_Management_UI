@@ -30,8 +30,8 @@ public class SecLevelWindow {
 
 		if (withButtons) {
 			HBox hBox = new HBox();
-			Button delete = new Button("DELETE");
-			Button update = new Button("UPDATE");
+			Button delete = new Button("_DELETE");
+			Button update = new Button("_UPDATE");
 
 			delete.setOnAction((ae) -> {
 				// User.Delete();
