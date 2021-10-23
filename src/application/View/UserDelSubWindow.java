@@ -111,7 +111,6 @@ public class UserDelSubWindow {
 
 		stage.initOwner(parent.getStage());
 		stage.initModality(Modality.WINDOW_MODAL);
-
 		stage.showAndWait();
 	}
 

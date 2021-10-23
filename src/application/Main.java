@@ -160,7 +160,6 @@ public class Main extends Application {
 					userWindow.show();
 
 				}
-//				System.out.println(operator.getEmployeeNumber());
 
 			});
 

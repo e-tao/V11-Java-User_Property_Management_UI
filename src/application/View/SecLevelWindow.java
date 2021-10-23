@@ -34,7 +34,6 @@ public class SecLevelWindow {
 			Button update = new Button("_UPDATE");
 
 			delete.setOnAction((ae) -> {
-				// User.Delete();
 				deleteWindow = new UserDelSubWindow(this);
 				deleteWindow.show();
 			});
