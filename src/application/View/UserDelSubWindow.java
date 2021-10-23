@@ -2,7 +2,6 @@ package application.View;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 import application.Main;
 import application.Model.Employee;
@@ -114,19 +113,6 @@ public class UserDelSubWindow {
 		stage.initModality(Modality.WINDOW_MODAL);
 
 		stage.showAndWait();
-	}
-
-	public static ArrayList<String> getEvent(ArrayList<String> before, ArrayList<TextField> after) {
-		ArrayList<String> difference = new ArrayList<>();
-
-		for (int i = 0; i < before.size(); i++) {
-			if (!before.get(i).equals(after.get(i).getText())) {
-				difference.add("Changed from " + before.get(i) + " to " + after.get(i).getText());
-			}
-		}
-
-		return difference;
-
 	}
 
 }
