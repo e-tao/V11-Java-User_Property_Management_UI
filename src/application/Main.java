@@ -79,7 +79,7 @@ public class Main extends Application {
 			Label employee = new Label("Employee Number: ");
 			TextField employeeNo = new TextField();
 			employeeNo.setPrefWidth(buttonW + 10);
-			employeeNo.setPromptText("8 digits and PRESS ENTER!");
+			employeeNo.setPromptText("8 digits employee number");
 			employeeNo.setFocusTraversable(false);
 //			operator = new Employee(employeeNo.getText());
 			Separator separator = new Separator();
@@ -228,7 +228,7 @@ public class Main extends Application {
 		if (operator.getEmployeeNumber().isEmpty() || !operator.getEmployeeNumber().matches("[0-9]+")
 				|| operator.getEmployeeNumber().length() != 8) {
 			MessageBox message = new MessageBox(AlertType.WARNING, "EMPLOYEE NUMBER IS EMPTY",
-					"Enter your Employee Number and PRESS RETURN to continue.", "");
+					"Enter your 8 digits Employee Number to continue.", "");
 			return true;
 		}
 		return false;
