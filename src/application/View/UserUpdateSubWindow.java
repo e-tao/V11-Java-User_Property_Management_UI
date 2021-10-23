@@ -101,13 +101,13 @@ public class UserUpdateSubWindow {
 
 //				System.out.println(Main.getEmployeeNo());
 
-				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
+				log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(), LocalDate.now(),
 						LocalTime.now());
 				int logID = Log.addLog(log);
 
 				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
 						"You have successfully updated user recored",
-						getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+						getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
 			}
 
 		});
@@ -141,7 +141,7 @@ public class UserUpdateSubWindow {
 		stage.showAndWait();
 	}
 
-	public static ArrayList<String> getEvent(ArrayList<String> before, ArrayList<TextField> after) {
+	public static ArrayList<String> getChanges(ArrayList<String> before, ArrayList<TextField> after) {
 		ArrayList<String> difference = new ArrayList<>();
 
 		for (int i = 0; i < before.size(); i++) {
