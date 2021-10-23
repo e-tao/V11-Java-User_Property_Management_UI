@@ -93,17 +93,22 @@ public class UserUpdateSubWindow {
 			User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
 					updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
 
-			User.Update(modifiedUser);
+			if (!userAttributes.get(0).equals(updateTxtFd.get(0).getText())) {
+				MessageBox message = new MessageBox(AlertType.WARNING, "CANNOT CHANGE USERNAME",
+						"Changing username is not allowed", "");
+			} else {
+				User.Update(modifiedUser);
 
 //				System.out.println(Main.getEmployeeNo());
 
-			log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
-					LocalTime.now());
-			int logID = Log.addLog(log);
+				log = new Log(Main.getEmployeeNo(), getEvent(userAttributes, updateTxtFd).toString(), LocalDate.now(),
+						LocalTime.now());
+				int logID = Log.addLog(log);
 
-			MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
-					"You have successfully updated user recored",
-					getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
+						"You have successfully updated user recored",
+						getEvent(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+			}
 
 		});
 
