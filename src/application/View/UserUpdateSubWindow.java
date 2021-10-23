@@ -71,49 +71,40 @@ public class UserUpdateSubWindow {
 		Button query = new Button("_QUERY");
 
 		query.setOnAction((ae) -> {
-			if (!usernameIsEmpty()) {
+			if (!usernameIsEmpty() && userAttributes.size() != 0) {
 //				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
-				if (userAttributes.size() != 0) {
-					for (int i = 1; i < updateTxtFd.size(); i++) {
-						updateTxtFd.get(i).setText(userAttributes.get(i));
+				for (int i = 1; i < updateTxtFd.size(); i++) {
+					updateTxtFd.get(i).setText(userAttributes.get(i));
 
-					}
-				} else {
-					MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
-							"The username entered does not exist in the database.", "");
 				}
-
+			} else {
+				MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
+						"The username entered does not exist in the database.", "");
 			}
+
 		});
 
 		update.setOnAction((ae) -> {
-			if (!usernameIsEmpty()) {
+			if (!usernameIsEmpty() && userAttributes.size() != 0) {
 //				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
-				if (userAttributes.size() == 0) {
-					MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
-							"The username entered does not exist in the database.", "");
-				} else {
+				User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
+						updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
 
-					User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
-							updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
-
-					if (!userAttributes.get(0).equals(updateTxtFd.get(0).getText())) {
-						MessageBox message = new MessageBox(AlertType.WARNING, "CANNOT CHANGE USERNAME",
-								"Changing username is not allowed", "");
-					} else {
-						User.Update(modifiedUser);
+				User.Update(modifiedUser);
 
 //				System.out.println(Main.getEmployeeNo());
 
-						log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(),
-								LocalDate.now(), LocalTime.now());
-						int logID = Log.addLog(log);
+				log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(), LocalDate.now(),
+						LocalTime.now());
+				int logID = Log.addLog(log);
 
-						MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
-								"You have successfully updated user recored",
-								getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
-					}
-				}
+				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
+						"You have successfully updated user recored",
+						getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+
+			} else {
+				MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
+						"The username entered does not exist in the database.", "");
 			}
 		});
 
