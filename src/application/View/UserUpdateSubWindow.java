@@ -71,10 +71,7 @@ public class UserUpdateSubWindow {
 		Button query = new Button("_QUERY");
 
 		query.setOnAction((ae) -> {
-			if (updateTxtFd.get(0).getText().isEmpty()) {
-				MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
-						"Enter the username you want to update", "");
-			} else {
+			if (!usernameIsEmpty()) {
 				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
 				if (userAttributes.size() != 0) {
 					for (int i = 1; i < updateTxtFd.size(); i++) {
@@ -90,26 +87,28 @@ public class UserUpdateSubWindow {
 		});
 
 		update.setOnAction((ae) -> {
-			User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
-					updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
+			if (!usernameIsEmpty()) {
 
-			if (!userAttributes.get(0).equals(updateTxtFd.get(0).getText())) {
-				MessageBox message = new MessageBox(AlertType.WARNING, "CANNOT CHANGE USERNAME",
-						"Changing username is not allowed", "");
-			} else {
-				User.Update(modifiedUser);
+				User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
+						updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
+
+				if (!userAttributes.get(0).equals(updateTxtFd.get(0).getText())) {
+					MessageBox message = new MessageBox(AlertType.WARNING, "CANNOT CHANGE USERNAME",
+							"Changing username is not allowed", "");
+				} else {
+					User.Update(modifiedUser);
 
 //				System.out.println(Main.getEmployeeNo());
 
-				log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(), LocalDate.now(),
-						LocalTime.now());
-				int logID = Log.addLog(log);
+					log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(),
+							LocalDate.now(), LocalTime.now());
+					int logID = Log.addLog(log);
 
-				MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
-						"You have successfully updated user recored",
-						getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+					MessageBox message = new MessageBox(AlertType.INFORMATION, "USE RECORD UPDATED",
+							"You have successfully updated user recored",
+							getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
+				}
 			}
-
 		});
 
 		hBoxTop.getChildren().addAll(vBoxLeft, vBoxRight);
@@ -152,6 +151,16 @@ public class UserUpdateSubWindow {
 
 		return difference;
 
+	}
+
+	public boolean usernameIsEmpty() {
+		if (updateTxtFd.get(0).getText().isEmpty()) {
+			MessageBox message = new MessageBox(AlertType.WARNING, "USERNAME IS EMPTY",
+					"Enter the username you want to update and query first", "");
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
