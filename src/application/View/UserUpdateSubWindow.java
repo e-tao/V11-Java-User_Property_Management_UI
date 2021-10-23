@@ -72,27 +72,22 @@ public class UserUpdateSubWindow {
 
 		query.setOnAction((ae) -> {
 			if (!usernameIsEmpty() && userAttributes.size() != 0) {
-//				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
 				for (int i = 1; i < updateTxtFd.size(); i++) {
 					updateTxtFd.get(i).setText(userAttributes.get(i));
 
 				}
 			} else {
-				MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
-						"The username entered does not exist in the database.", "");
+				userNotExist();
 			}
 
 		});
 
 		update.setOnAction((ae) -> {
 			if (!usernameIsEmpty() && userAttributes.size() != 0) {
-//				userAttributes = User.GetUser(updateTxtFd.get(0).getText());
 				User modifiedUser = new User(updateTxtFd.get(0).getText(), updateTxtFd.get(1).getText(),
 						updateTxtFd.get(2).getText(), updateTxtFd.get(3).getText(), updateTxtFd.get(4).getText());
 
 				User.Update(modifiedUser);
-
-//				System.out.println(Main.getEmployeeNo());
 
 				log = new Log(Main.getEmployeeNo(), getChanges(userAttributes, updateTxtFd).toString(), LocalDate.now(),
 						LocalTime.now());
@@ -103,8 +98,7 @@ public class UserUpdateSubWindow {
 						getChanges(userAttributes, updateTxtFd).toString() + ", LogID: " + logID);
 
 			} else {
-				MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
-						"The username entered does not exist in the database.", "");
+				userNotExist();
 			}
 		});
 
@@ -159,6 +153,11 @@ public class UserUpdateSubWindow {
 			userAttributes = User.GetUser(updateTxtFd.get(0).getText());
 			return false;
 		}
+	}
+
+	public void userNotExist() {
+		MessageBox message = new MessageBox(AlertType.WARNING, "USER DOES NOT EXIST",
+				"The username entered does not exist in the database.", "");
 	}
 
 }
