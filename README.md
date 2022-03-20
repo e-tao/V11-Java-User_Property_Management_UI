@@ -28,4 +28,4 @@ The project uses the following language, toolkit, IDE etc...
 - [git] - version control
 
 ## Screenshot
-![Application Screenshot](https://raw.githubusercontent.com/ethantao-repo/V11-PRJ-User_Property_Management_UI/master/screenshot/V11_Project_ScreenShot.png)
+![Application Screenshot](https://github.com/ethantao-repo/V11-PRJ-User_Property_Management_UI/blob/master/screenshot/V11_Project_ScreenShot.png?raw=true)
